@@ -1,26 +1,27 @@
 <!DOCTYPE html>
 <html lang="fr">
     <head>
-        <title>Se connecter - Le tchat du laitier</title>
+        <title>S'inscrire - Le tchat du laitier</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href="../resources/stylesheets/style.css"> 
     </head>
-    <body id="login-html">
+    <body id="register-html">
         <header>
             <!--
                 <h1>Le chat du laitier</h1>
-                <h2>Se connecter</h2>
+                <h2>S'inscrire</h2>
             -->
         </header>
         <section class="full-center">
             <div class="login-main">
-                <h3>Se connecter</h3>
-                <form method="post" action="login.js">
+                <h3>S"inscrire</h3>
+                <form method="post" action="register.js">
                     <input type="text" name="username" id="username" placeholder="Nom d'utilisateur">
                     <input type="password" name="password" id="password" placeholder="Mot de passe">
+                    <input type="password" name="password-confirm" id="password-confirm" placeholder="Confirmez le mot de passe">
                     <div id="login-main-bottom">
-                        <a href="register.html">S'inscrire</a>
-                        <input type="submit" name="send" value="Se connecter">
+                        <a href="login.html">Déjà inscrit ? Connectez-vous</a>
+                        <input type="submit" name="send" value="S'inscrire">
                     </div>
                 </form>
             </div>
