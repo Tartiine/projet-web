@@ -13,8 +13,22 @@
                 <a href="register.html" class="header-button">S'inscrire</a>
         </header>
         <section class="full-center">
-            <div class="login-main">
-                <h3>Nom de la conversation</h3>
+            <div id="main-container">
+                <div id="sidebar">
+                    <svg viewBox="0 0 80 80" id="show-button">
+                        <g fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round">
+                          <line x1="5" y1="10" x2="75" y2="10" />
+                          <line x1="5" y1="40" x2="75" y2="40" />
+                          <line x1="5" y1="70" x2="75" y2="70" />
+                        </g>
+                    </svg>
+                </div>
+                <div id="conversation-title">
+                    <h3>Nom de la conversation</h3>
+                </div>
+                <div id="conversation-thread">
+                    <iframe title="Fil de messages" src="thread.html"></iframe>
+                </div>
             </div>
         </section>
         <section class="wave-background"><div></div> <div></div> <div></div></section>
@@ -22,4 +36,6 @@
             <p>Isaac Dalberto, Corentin Leandre et Sofia Saadi - ENSISA 1A IR - 2023</p>
         </footer>
     </body>
+
+    <script type="text/javascript" src="../scripts/client-interactions.js"></script>
 </html>

@@ -59,10 +59,6 @@ header a:first-child { line-height: var(--header-size); margin-right: auto;}
 #login-html { background-color: var(--login-background-color); }
 #register-html { background-color: var(--register-background-color); }
 
-section {
-    position: absolute;
-}
-
 .full-center {
     width: 100vw;
     height: calc(100vh - var(--header-size));
