@@ -3,14 +3,15 @@
     <head>
         <title>Le tchat du laitier</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="../resources/stylesheets/style-main.css"> 
+		{% load static %}		
+        <link rel="stylesheet" href="{% static 'style-main.css' %}"> 
     </head>
     <body>
         <header>
-                <a href="index.html"><h1>Le tchat du laitier</h1></a>
-                <a href="admin.html" class="header-button">Modération</a>
-                <a href="login.html" class="header-button">Se connecter</a>
-                <a href="register.html" class="header-button">S'inscrire</a>
+                <a href="../index"><h1>Le tchat du laitier</h1></a>
+                <a href="../admin" class="header-button">Modération</a>
+                <a href="../login" class="header-button">Se connecter</a>
+                <a href="../register" class="header-button">S'inscrire</a>
         </header>
         <section class="full-center">
             <div id="main-container">
@@ -47,5 +48,5 @@
         </footer>
     </body>
 
-    <script type="text/javascript" src="../scripts/client-interactions.js"></script>
+    <script type="text/javascript" src="{% static 'client-interactions.js' %}"></script>
 </html>

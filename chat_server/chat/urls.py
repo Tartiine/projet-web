@@ -18,8 +18,9 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path ('', views.login, name ='login-view') ,
-    path ('', views.register, name ='register-view') ,
+    path ('', views.index, name ='index-view') ,
+    path ('', views.thread, name ='thread-view') ,
 ]
+
 
 
