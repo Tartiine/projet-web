@@ -11,7 +11,7 @@
 
     --main-padding: 30px;
     --main-gap: 16px;
-    --text-size-main: 13px;
+    --text-size-main: 14px;
     --login-background-color: #3f435c;
 
     --register-background-color: #3f595c;
@@ -26,6 +26,7 @@
     margin: 0;
     padding: 0;
     font-family: "EleganTech", Arial, Helvetica, sans-serif;
+    font-size: var(--text-size-main);
 }
 
 h2 {

@@ -76,9 +76,9 @@ header h1 { color: var(--color-text-light); font-family: "EspressoDolce", Arial,
     grid-template-columns: 50px auto;
     row-gap: var(--main-gap);
     column-gap: var(--main-padding);
-    width: calc(100% - 4 * var(--main-padding));
-    height: calc(100% - 4 * var(--main-padding));
-    font-size: 17px;
+    width: calc(100% - 2 * var(--main-padding));
+    height: calc(100% - 2 * var(--main-padding));
+    font-size: 14px;
     background-color: var(--color-cstm-blue);
     color: var(--color-text-light);
     border-radius: calc(var(--main-padding) * 0.85);
@@ -88,12 +88,27 @@ header h1 { color: var(--color-text-light); font-family: "EspressoDolce", Arial,
 
 #sidebar {
     grid-area: sidebar;
+    display: block;
+    position: relative;
     background-color: var(--color-cstm-blue-dark);
-    display: flex;
     color: var(--color-text-light);
+    border-radius: calc(var(--main-padding) * 0.425);
+    overflow-x: hidden;
+}
+
+#conversation-list {
+    height: calc(100% - 50px);
+    width: 30vw;
+    overflow-y: scroll;
+    padding: var(--main-padding) var(--main-padding) 0 55px;
+    list-style: none;
+    transition: 0.65s var(--interpolation-open-menu);
 }
 
 #show-button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
     width: 25px;
     height: 25px;
     margin: 12.5px;
@@ -103,8 +118,8 @@ header h1 { color: var(--color-text-light); font-family: "EspressoDolce", Arial,
 }
 
 #show-button:hover { transform: scale(1.15); }
-
 #show-button:active { transform: scale(1.25); }
+#show-button-graphics { transition: 0.65s var(--interpolation-hover); }
 
 #conversation-title {
     grid-area: conversation-title;
@@ -112,7 +127,7 @@ header h1 { color: var(--color-text-light); font-family: "EspressoDolce", Arial,
     line-height: 50px;
 }
 #conversation-title h3 {
-    font-size: 40px;
+    font-size: 38px;
     font-weight: bold;
     font-family: "EspressoDolce", Arial, Helvetica, sans-serif;
 }
