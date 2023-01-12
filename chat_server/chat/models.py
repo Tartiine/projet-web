@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 
 class Chat(models.Model):
+    name = models.CharField(max_length=50)
     creation_date = models.DateTimeField()
 
 class User(models.Model):

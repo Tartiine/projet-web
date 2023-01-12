@@ -19,6 +19,7 @@ from . import views
 
 urlpatterns = [
     path ('index', views.index, name ='index-view') ,
+    path ('moderation', views.moderation, name ='moderation-view') ,
     path ('thread', views.thread, name ='thread-view') ,
 ]
 
