@@ -23,6 +23,12 @@
                         22.4 15.8 34.3zM256 336c44.2 0 80-35.8 80-80s-35.8-80-80-80s-80 35.8-80 80s35.8 80 80 80z"/>
                     </svg>
                 </a>
+                {% if user.is_authenticated %}
+                    <p>Welcome, {{ user.username }}</p>
+                    
+                {% else %}
+                    <p>Welcome, anonymous user</p>
+                {% endif %}
                 <a href="{% url 'account_login' %}" class="header-button">Se connecter</a>
                 <a href="{% url 'account_signup' %}" class="header-button">S'inscrire</a>
         </header>
