@@ -1,4 +1,5 @@
 from django.db import models
+from djang.forms import model_to_dict
 
 # Create your models here.
 
@@ -15,3 +16,10 @@ class Message(models.Model):
     content = models.CharField(max_length=400)
     publication_date = models.DateTimeField()
 
+    def to_dict(self):
+        dicmessage = {}
+        dicmessage['author'] = model_to_dict(self.author)
+        dicmessage['chat'] = model_to_dict(self.chat)
+        dicmessage['content'] = self.content
+        dicmessage['publication_date'] = self.publication_date
+        return dicmessage
