@@ -9,7 +9,7 @@
     </head>
     <body id="register-html">
         <header>
-            <a href="../chat/index"><h1>Le tchat du laitier</h1></a>
+            <a href="{% url 'index-view' %}"><h1>Le tchat du laitier</h1></a>
         </header>
         <section class="full-center">
             <div class="login-main">
@@ -19,7 +19,7 @@
                     <input type="password" name="password" id="password" placeholder="Mot de passe">
                     <input type="password" name="password-confirm" id="password-confirm" placeholder="Confirmez le mot de passe">
                     <div id="login-main-bottom">
-                        <a href="../login">Déjà inscrit ? Connectez-vous</a>
+                        <a href="{% url 'account_login' %}">Déjà inscrit ? Connectez-vous</a>
                         <input type="submit" name="send" value="S'inscrire">
                     </div>
                 </form>
