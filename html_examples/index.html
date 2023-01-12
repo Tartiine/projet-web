@@ -3,12 +3,13 @@
     <head>
         <title>Le tchat du laitier</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="../resources/stylesheets/style-main.css"> 
+		{% load static %}		
+        <link rel="stylesheet" href="{% static 'style-main.css' %}"> 
     </head>
     <body>
         <header>
-                <a href="index.html"><h1>Le tchat du laitier</h1></a>
-                <a href="admin.html" title="Modération">
+                <a href="../index"><h1>Le tchat du laitier</h1></a>
+                <a href="../admin" title="Modération">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke="currentColor" class="header-button">
                         <!--Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com Copyright 2022 Fonticons, Inc. -->
                         <path fill="currentColor" d="M495.9 166.6c3.2 8.7 .5 18.4-6.4 24.6l-43.3 39.4c1.1 8.3 1.7 16.8 1.7 25.4s-.6 
@@ -23,8 +24,8 @@
                         22.4 15.8 34.3zM256 336c44.2 0 80-35.8 80-80s-35.8-80-80-80s-80 35.8-80 80s35.8 80 80 80z"/>
                     </svg>
                 </a>
-                <a href="login.html" class="header-button">Se connecter</a>
-                <a href="register.html" class="header-button">S'inscrire</a>
+                <a href="../login" class="header-button">Se connecter</a>
+                <a href="../register" class="header-button">S'inscrire</a>
         </header>
         <section class="full-center">
             <div id="main-container">
@@ -117,5 +118,5 @@
         </footer>
     </body>
 
-    <script type="text/javascript" src="../scripts/client-interactions.js"></script>
+    <script type="text/javascript" src="{% static 'client-interactions.js' %}"></script>
 </html>
