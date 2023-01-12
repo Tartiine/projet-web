@@ -8,12 +8,7 @@
     </head>
     <body>
         <header>
-                <a href="index"><h1>Le tchat du laitier</h1></a>
-                <a href="../admin" class="header-button">Modération</a>
-                <a href="../auth/login" class="header-button">Se connecter</a>
-                <a href="../auth/register" class="header-button">S'inscrire</a>
-                <a href="../index"><h1>Le tchat du laitier</h1></a>
-                <a href="../admin" title="Modération">
+                <a href="{% url 'index-view' %}"><h1>Le tchat du laitier</h1></a>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke="currentColor" class="header-button">
                         <!--Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com Copyright 2022 Fonticons, Inc. -->
                         <path fill="currentColor" d="M495.9 166.6c3.2 8.7 .5 18.4-6.4 24.6l-43.3 39.4c1.1 8.3 1.7 16.8 1.7 25.4s-.6 
