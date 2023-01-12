@@ -6,7 +6,7 @@ const mainGrid = document.getElementById("main-container");
 function showHideDiscussions() {
     opened = !opened;
     if (opened) {
-        mainGrid.style.gridTemplateColumns = "30vw auto";
+        mainGrid.style.gridTemplateColumns = "max(300px, 30vw) auto";
         showButtonGraphics.style.d = "path('M5,40 L40,20 M5,40 L75,40 M5,40 L40,60')";
         document.getElementById("conversation-list").style.padding = "var(--main-padding) var(--main-padding) 0 var(--main-padding)";
     }
