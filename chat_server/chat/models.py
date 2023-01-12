@@ -4,6 +4,7 @@ from djang.forms import model_to_dict
 # Create your models here.
 
 class Chat(models.Model):
+    name = models.CharField(max_length=40)
     creation_date = models.DateTimeField()
 
 class User(models.Model):
