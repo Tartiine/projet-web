@@ -3,8 +3,6 @@ from allauth.account.views import SignupView
 from allauth.account.views import LoginView
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from django.db import IntegrityError
-
 
 
 # Create your views here.

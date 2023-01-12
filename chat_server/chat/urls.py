@@ -22,6 +22,3 @@ urlpatterns = [
     path ('moderation', views.moderation, name ='moderation-view') ,
     path ('thread', views.thread, name ='thread-view') ,
 ]
-
-
-

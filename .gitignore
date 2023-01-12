@@ -2,3 +2,4 @@ __pycache__/
 *.pyc
 *.log
 db.sqlite3
+chat_server/sqlite3.exe
