@@ -4,14 +4,14 @@
         <title>Le tchat du laitier</title>
         <meta charset="utf-8">
 		{% load static %}		
-        <link rel="stylesheet" href="{% static 'style-main.css' %}"> 
+        <link rel="stylesheet" href="{% static 'stylesheets/style-main.css' %}"> 
     </head>
     <body>
         <header>
-                <a href="../index"><h1>Le tchat du laitier</h1></a>
+                <a href="index"><h1>Le tchat du laitier</h1></a>
                 <a href="../admin" class="header-button">Modération</a>
-                <a href="../login" class="header-button">Se connecter</a>
-                <a href="../register" class="header-button">S'inscrire</a>
+                <a href="../auth/login" class="header-button">Se connecter</a>
+                <a href="../auth/register" class="header-button">S'inscrire</a>
         </header>
         <section class="full-center">
             <div id="main-container">
@@ -38,7 +38,7 @@
                     <h3>Nom de la conversation</h3>
                 </div>
                 <div id="conversation-thread">
-                    <iframe title="Fil de messages" src="thread.html"></iframe>
+                    <iframe title="Fil de messages" src="../thread"></iframe>
                 </div>
             </div>
         </section>
@@ -48,5 +48,5 @@
         </footer>
     </body>
 
-    <script type="text/javascript" src="{% static 'client-interactions.js' %}"></script>
+    <script type="text/javascript" src="{% static 'scripts/client-interactions.js' %}"></script>
 </html>

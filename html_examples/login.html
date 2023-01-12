@@ -4,20 +4,21 @@
         <title>Se connecter - Le tchat du laitier</title>
         <meta charset="utf-8">
 		{% load static %}
-        <link rel="stylesheet" href="{% static 'style-login.css' %}"> 
+		{% csrf_token %}
+        <link rel="stylesheet" href="{% static 'stylesheets/style-login.css' %}"> 
     </head>
     <body id="login-html">
         <header>
-            <a href="index.html"><h1>Le tchat du laitier</h1></a>
+            <a href="../chat/index"><h1>Le tchat du laitier</h1></a>
         </header>
         <section class="full-center">
             <div class="login-main">
                 <h3>Se connecter</h3>
-                <form method="post" action="login.js">
-                    <input type="text" name="username" id="username" placeholder="Nom d'utilisateur">
+                <form method="post" action="{% url 'account_login' %}">
+                    <input type="text" name="login" id="login" placeholder="Nom d'utilisateur">
                     <input type="password" name="password" id="password" placeholder="Mot de passe">
                     <div id="login-main-bottom">
-                        <a href="register.html">S'inscrire</a>
+                        <a href="{% url 'account_signup' %}">S'inscrire</a>
                         <input type="submit" name="send" value="Se connecter">
                     </div>
                 </form>

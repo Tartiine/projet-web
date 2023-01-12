@@ -7,5 +7,4 @@ def index(request):
 
 def thread(request):
     return render(request, 'thread.html')
-from django.shortcuts import render
 
