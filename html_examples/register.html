@@ -4,7 +4,6 @@
         <title>S'inscrire - Le tchat du laitier</title>
         <meta charset="utf-8">
 		{% load static %}
-		{% csrf_token %}
         <link rel="stylesheet" href="{% static 'stylesheets/style-login.css' %}"> 
     </head>
     <body id="register-html">
@@ -15,9 +14,11 @@
             <div class="login-main">
                 <h3>S"inscrire</h3>
                 <form method="post" action="{% url 'account_signup' %}">
+                    {% csrf_token %}    
                     <input type="text" name="username" id="username" placeholder="Nom d'utilisateur">
                     <input type="password" name="password" id="password" placeholder="Mot de passe">
                     <input type="password" name="password-confirm" id="password-confirm" placeholder="Confirmez le mot de passe">
+                    <div class="error">{{ error }}</div>
                     <div id="login-main-bottom">
                         <a href="{% url 'account_login' %}">Déjà inscrit ? Connectez-vous</a>
                         <input type="submit" name="send" value="S'inscrire">
