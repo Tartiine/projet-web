@@ -42,6 +42,11 @@ header {
     justify-content: flex-end;
     padding: 0 var(--main-padding);
 }
+header p {
+    color: var(--color-text-light);
+    font-size: calc((var(--header-size) - var(--header-size) / 2.5)/2.5);
+    line-height: var(--header-size);
+}
 header a { text-decoration: none; }
 header a:first-child { line-height: var(--header-size); margin-right: auto; }
 header h1 { color: var(--color-text-light); font-family: "EspressoDolce", Arial, Helvetica, sans-serif; }
