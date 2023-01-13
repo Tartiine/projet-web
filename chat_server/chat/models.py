@@ -21,7 +21,7 @@ class Chat(models.Model):
     def to_dict(self):
         dicchat = {}
         dicchat['name'] = self.name
-        dicchat['author'] = model_to_dict(self.creator)
+        dicchat['author'] = self.creator.to_dict()
         dicchat['creation_date'] = self.creation_date
         return dicchat
 
@@ -33,8 +33,8 @@ class Message(models.Model):
 
     def to_dict(self):
         dicmessage = {}
-        dicmessage['author'] = model_to_dict(self.author)
-        dicmessage['chat'] = model_to_dict(self.chat)
+        dicmessage['author'] = self.author.to_dict()
+        dicmessage['chat'] = self.chat.to_dict()
         dicmessage['content'] = self.content
         dicmessage['publication_date'] = self.publication_date
         return dicmessage
