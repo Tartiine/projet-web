@@ -14,3 +14,10 @@ def moderation(request):
 def thread(request):
     return render(request, 'thread.html')
 
+def getChats(request):
+
+def getMessages(request):
+
+def createChat(request):
+
+def saveMessage(request):
