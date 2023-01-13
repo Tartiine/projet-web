@@ -1,11 +1,13 @@
 {% if conversation_list %}
+    {% for conversation in conversation_list %}
     <li>
         <div class="conversation">
-            <p>Sujet de la conversation n°1</p>
-            <p>Créé par Tartiine le 11/01/2023 22:52</p>
-            <p>Mis à jour par Tartiine le 11/01/2023 22:52</p>
+            <p>{{ conversation.name }}</p>
+            <p>Créé par {{ conversation.author }} le {{ conversation.creation_date }}</p>
+            <!--<p>Mis à jour par Tartiine le 11/01/2023 22:52</p>-->
         </div>
     </li>
+    {% endfor %}
 {% else %}
     <p>Il n'y a aucune conversation disponible.</p>
 {% endif %}

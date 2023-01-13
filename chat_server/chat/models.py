@@ -2,13 +2,14 @@ from django.db import models
 
 # Create your models here.
 
-class Chat(models.Model):
-    name = models.CharField(max_length=50)
-    creation_date = models.DateTimeField()
-
 class User(models.Model):
     username = models.CharField(max_length=40)
     rights = models.IntegerField()
+
+class Chat(models.Model):
+    name = models.CharField(max_length=50)
+    author = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    creation_date = models.DateTimeField()
 
 class Message(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
