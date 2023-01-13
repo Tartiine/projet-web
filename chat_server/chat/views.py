@@ -3,7 +3,6 @@ from django.views.generic.base import TemplateView
 from django.contrib.auth import logout
 from django.http import JsonResponse, HttpResponse
 from django.utils import timezone
-
 from .models import Chat, Message, User
 
 # Create your views here.
