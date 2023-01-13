@@ -28,6 +28,9 @@ urlpatterns = [
 """ path('getChats', views.getChats, name ='chats-request'),
     path('getMessages', views.getMessages, name ='messages-request'),
     path('createChat', views.createChat, name ='chat-creation'),
-    path('saveMessage', views.saveMessage, name ='message creation'),
-"""
+    path('saveMessage', views.saveMessage, name ='message-creation'),
+    path('init', views.init, name="test-initialization")
+]
+
+
 
