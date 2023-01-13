@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b6616f8f-3f71-471b-935a-51ebfa0554aa" name="Changes" comment="getChats and getMessages done">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/scripts/jquery-3.6.3.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat_server/chat/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/chat_server/chat/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat_server/chat/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/chat_server/chat/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat_server/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/chat_server/db.sqlite3" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2KFHd4lW2MyUJsvqzAsRrMajxCJ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/ENSISA/Projets/Projet_web&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b6616f8f-3f71-471b-935a-51ebfa0554aa" name="Changes" comment="" />
+      <created>1673563496034</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1673563496034</updated>
+      <workItem from="1673563500084" duration="3092000" />
+      <workItem from="1673567099349" duration="366000" />
+      <workItem from="1673567489832" duration="1518000" />
+      <workItem from="1673605172558" duration="1593000" />
+    </task>
+    <task id="LOCAL-00001" summary="created functions and paths for requests">
+      <created>1673567372946</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1673567372946</updated>
+    </task>
+    <task id="LOCAL-00002" summary="created js file for future use">
+      <created>1673567393599</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1673567393599</updated>
+    </task>
+    <task id="LOCAL-00003" summary="added to_dict">
+      <created>1673567516167</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1673567516167</updated>
+    </task>
+    <task id="LOCAL-00004" summary="added name field">
+      <created>1673567574837</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1673567574837</updated>
+    </task>
+    <task id="LOCAL-00005" summary="added cretor field">
+      <created>1673567811003</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1673567811003</updated>
+    </task>
+    <task id="LOCAL-00006" summary="added to_dict to User and Chat">
+      <created>1673568112949</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1673568112949</updated>
+    </task>
+    <task id="LOCAL-00007" summary="getChats and getMessages done">
+      <created>1673606145929</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1673606145929</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="created functions and paths for requests" />
+    <MESSAGE value="created js file for future use" />
+    <MESSAGE value="added to_dict" />
+    <MESSAGE value="added name field" />
+    <MESSAGE value="added cretor field" />
+    <MESSAGE value="added to_dict to User and Chat" />
+    <MESSAGE value="getChats and getMessages done" />
+    <option name="LAST_COMMIT_MESSAGE" value="getChats and getMessages done" />
+  </component>
+</project>

@@ -20,7 +20,8 @@ class CustomSignupView(SignupView):
             else:
                 user = User.objects.create_user(username=userName, password=Password)
                 user.save()
-                return render(request, 'register.html', {'error': 'Account created'})
+                return redirect('account_login')
+                return render(request, 'login.html', {'error': 'Account created'})
         else:
             return render(request, 'register.html', {'error': 'Error the account was not created'})
 
