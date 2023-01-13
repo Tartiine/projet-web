@@ -1,12 +1,9 @@
 from django.shortcuts import render, redirect
-from allauth.account.views import SignupView
-from allauth.account.views import LoginView
+from allauth.account.views import LoginView, SignupView
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 
-
 # Create your views here.
-
 class CustomSignupView(SignupView):
     template_name = "auth/register.html"
     
@@ -15,10 +12,17 @@ class CustomSignupView(SignupView):
         Password = request.POST.get('password')
         password_confirm = request.POST.get('password-confirm')
         if Password == password_confirm:
+            
             if User.objects.filter(username=userName).exists():
                 return render(request, self.template_name, {'error': 'This username is already associated to a account'})
             else:
-                user = User.objects.create_user(username=userName, password=Password)
+
+                if User.objects.exists() == 0:
+                    user = User.objects.create_user(username=userName, password=Password)
+                    user.is_staff = True
+                    user.is_superuser = True
+                else:
+                    user = User.objects.create_user(username=userName, password=Password)
                 user.save()
                 return redirect('account_login')
                 return render(request, 'auth/login.html', {'error': 'Account created'})
