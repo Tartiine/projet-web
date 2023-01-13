@@ -16,7 +16,6 @@ class CustomSignupView(SignupView):
             if User.objects.filter(username=userName).exists():
                 return render(request, self.template_name, {'error': 'This username is already associated to a account'})
             else:
-
                 if User.objects.exists() == 0:
                     user = User.objects.create_user(username=userName, password=Password)
                     user.is_staff = True

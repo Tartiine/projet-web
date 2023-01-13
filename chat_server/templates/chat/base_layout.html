@@ -10,17 +10,8 @@
     </head>
     <body id="index">
         <header>
-                <a href="{% url 'index-view' %}"><h1>Le tchat du laitier</h1></a>
-                
-                {% if user.is_authenticated %}
-                    <p>Bienvenue, {{ user.username }}</p>
-                    {% block additional-header-buttons %} {% endblock %}
-                    <a href="{% url 'account_login' %}" class="header-button">Se déconnecter</a>
-                {% else %}
-                    <p>Vous n'êtes pas encore connecté</p>
-                    <a href="{% url 'account_login' %}" class="header-button">Se connecter</a>
-                    <a href="{% url 'account_signup' %}" class="header-button">S'inscrire</a>
-                {% endif %}
+            <a href="{% url 'index-view' %}"><h1>Le tchat du laitier</h1></a>
+            {% block header-buttons %} {% endblock %}
         </header>
         <section class="full-center">
             {% block content %} {% endblock %}

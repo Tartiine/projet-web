@@ -14,10 +14,9 @@ class IndexView(TemplateView):
         conversation_list = Chat.objects.order_by('-creation_date')[:]
         context = {'conversation_list': conversation_list}
         if request.GET.get('logout'):
-            print(request.user) #check the user before
             logout(request)
         return render(request, self.template_name, context)
-    
+
 def moderation(request):
     return render(request, 'chat/moderation.html')
 
