@@ -246,7 +246,7 @@ h3 {
     display: block;
     position: relative;
 }
-#writing-area input {
+#new-message, #new-message-locked {
     width: calc(100% - var(--main-padding));
     background-color: var(--color-cstm-gray);
     color: var(--color-text-light);
@@ -257,6 +257,7 @@ h3 {
     margin-left: 0;
     margin-bottom: var(--main-gap);
 }
+#new-message-locked { font-style: italic; }
 
 #moderation-main-content {
     padding: var(--main-padding);

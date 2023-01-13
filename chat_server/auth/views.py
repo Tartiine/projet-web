@@ -1,31 +1,36 @@
 from django.shortcuts import render, redirect
-from allauth.account.views import SignupView
-from allauth.account.views import LoginView
+from allauth.account.views import LoginView, SignupView
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 
-
 # Create your views here.
-
 class CustomSignupView(SignupView):
-    template_name = "register.html"
+    template_name = "auth/register.html"
     
     def post(self, request, *args, **kwargs):
         userName = request.POST.get('username')
         Password = request.POST.get('password')
         password_confirm = request.POST.get('password-confirm')
         if Password == password_confirm:
+            
             if User.objects.filter(username=userName).exists():
-                return render(request, 'register.html', {'error': 'This username is already associated to a account'})
+                return render(request, self.template_name, {'error': 'This username is already associated to a account'})
             else:
-                user = User.objects.create_user(username=userName, password=Password)
+
+                if User.objects.exists() == 0:
+                    user = User.objects.create_user(username=userName, password=Password)
+                    user.is_staff = True
+                    user.is_superuser = True
+                else:
+                    user = User.objects.create_user(username=userName, password=Password)
                 user.save()
-                return render(request, 'register.html', {'error': 'Account created'})
+                return redirect('account_login')
+                return render(request, 'auth/login.html', {'error': 'Account created'})
         else:
-            return render(request, 'register.html', {'error': 'Error the account was not created'})
+            return render(request, self.template_name, {'error': 'Error the account was not created'})
 
 class CustomLoginView(LoginView):
-    template_name = "login.html"
+    template_name = "auth/login.html"
 
     def post(self, request, *args, **kwargs):
         userName = request.POST.get('username')
@@ -35,4 +40,4 @@ class CustomLoginView(LoginView):
             login(request, user)
             return redirect('index-view')
         else:
-            return render(request, 'login.html', {'error': 'Invalid login credentials'})
+            return render(request, self.template_name, {'error': 'Invalid login credentials'})

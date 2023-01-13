@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <title>
+            {% block title %} {% endblock %}
+        </title>
+        <meta charset="utf-8">
+		{% load static %}
+        <link rel="stylesheet" href="{% static 'stylesheets/style-main.css' %}"> 
+    </head>
+    <body id="index">
+        <header>
+                <a href="{% url 'index-view' %}"><h1>Le tchat du laitier</h1></a>
+                
+                {% if user.is_authenticated %}
+                    <p>Bienvenue, {{ user.username }}</p>
+                    {% block additional-header-buttons %} {% endblock %}
+                    <a href="{% url 'account_login' %}" class="header-button">Se déconnecter</a>
+                {% else %}
+                    <p>Vous n'êtes pas encore connecté</p>
+                    <a href="{% url 'account_login' %}" class="header-button">Se connecter</a>
+                    <a href="{% url 'account_signup' %}" class="header-button">S'inscrire</a>
+                {% endif %}
+        </header>
+        <section class="full-center">
+            {% block content %} {% endblock %}
+        </section>
+        <section class="wave-background"><div></div> <div></div> <div></div></section>
+        <footer>
+            <p>Isaac Dalberto, Corentin Leandre et Sofia Saadi - ENSISA 1A IR - 2023</p>
+        </footer>
+    </body>
+
+    <script type="text/javascript" src="{% static 'scripts/client-interactions.js' %}"></script>
+</html>

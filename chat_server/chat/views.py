@@ -1,20 +1,25 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.views.generic.base import TemplateView
+from django.contrib.auth import logout
 from django.http import JsonResponse, HttpResponse
 from django.utils import timezone
-
 from .models import Chat, Message, User
-
 
 # Create your views here.
 
-def index(request):
-    conversation_list = Chat.objects.order_by('-creation_date')[:]
-    context = {'conversation_list': conversation_list}
-    return render(request, 'index.html', context)
+class IndexView(TemplateView):
+    template_name = "chat/index.html"
 
+    def get(self, request, *args, **kwargs):
+        conversation_list = Chat.objects.order_by('-creation_date')[:]
+        context = {'conversation_list': conversation_list}
+        if request.GET.get('logout'):
+            print(request.user) #check the user before
+            logout(request)
+        return render(request, self.template_name, context)
 
 def moderation(request):
-    return render(request, 'moderation.html')
+    return render(request, 'chat/moderation.html')
 
 
 def thread(request):

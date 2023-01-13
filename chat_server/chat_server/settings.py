@@ -16,6 +16,7 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
@@ -26,6 +27,7 @@ SECRET_KEY = 'django-insecure-*^40q81mr$)g_1kvinw_i!5hp6v710_tzr5@d8v_h^e!ni695n
 DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+
 
 # Application definition
 
@@ -58,8 +60,8 @@ ROOT_URLCONF = 'chat_server.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['../html_examples/',
-
+        'DIRS': ['templates/',
+                 
                  ],
         'APP_DIRS': True,
         'OPTIONS': {
