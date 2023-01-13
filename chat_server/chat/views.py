@@ -68,15 +68,13 @@ def init(request):
 
 
 def getChats(request):
-    print(request)
     chats = Chat.objects.all()
     data = [chat.to_dict() for chat in chats]
     return JsonResponse({'chats': data})
 
 
 def getMessages(request):
-    print(request)
-    chat = Chat.objects.get(name="general")
+    chat = Chat.objects.get(name=request.GET['chatName'])
     messages = chat.message_set.only('author', 'chat', 'content', 'publication_date').all()
     data = [message.to_dict() for message in messages]
 
