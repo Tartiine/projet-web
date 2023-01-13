@@ -58,7 +58,7 @@ ROOT_URLCONF = 'chat_server.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['../html_examples/',
+        'DIRS': ['templates/',
                  
                  ],
         'APP_DIRS': True,

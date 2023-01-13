@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <title>S'inscrire - Le tchat du laitier</title>
+        <meta charset="utf-8">
+		{% load static %}
+        <link rel="stylesheet" href="{% static 'stylesheets/style-login.css' %}"> 
+    </head>
+    <body id="register-html">
+        <header>
+            <a href="{% url 'index-view' %}"><h1>Le tchat du laitier</h1></a>
+        </header>
+        <section class="full-center">
+            <div class="login-main">
+                <h3>S"inscrire</h3>
+                <form method="post" action="{% url 'account_signup' %}">
+                    {% csrf_token %}    
+                    <input type="text" name="username" id="username" placeholder="Nom d'utilisateur">
+                    <input type="password" name="password" id="password" placeholder="Mot de passe">
+                    <input type="password" name="password-confirm" id="password-confirm" placeholder="Confirmez le mot de passe">
+                    <div class="error">{{ error }}</div>
+                    <div id="login-main-bottom">
+                        <a href="{% url 'account_login' %}">Déjà inscrit ? Connectez-vous</a>
+                        <input type="submit" name="send" value="S'inscrire">
+                    </div>
+                </form>
+            </div>
+        </section>
+        <section class="wave-background"><div></div> <div></div> <div></div></section>
+        <footer>
+            <p>Isaac Dalberto, Corentin Leandre et Sofia Saadi - ENSISA 1A IR - 2023</p>
+        </footer>
+    </body>
+</html>

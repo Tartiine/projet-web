@@ -8,7 +8,7 @@ from .models import Chat, Message, User
 # Create your views here.
 
 class IndexView(TemplateView):
-    template_name = "index.html"
+    template_name = "chat/index.html"
     
     def get(self, request, *args, **kwargs):
         conversation_list = Chat.objects.order_by('-creation_date')[:]
@@ -19,7 +19,7 @@ class IndexView(TemplateView):
         return render(request, self.template_name, context)
     
 def moderation(request):
-    return render(request, 'moderation.html')
+    return render(request, 'chat/moderation.html')
 
 def thread(request):
     return render(request, 'thread.html')
