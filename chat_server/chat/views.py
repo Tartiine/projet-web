@@ -26,7 +26,7 @@ class IndexView(TemplateView):
             if new_conv:
                 new_chat = Chat(name=new_conv,creator=request.user, creation_date=timezone.now())
                 new_chat.save()
-        return redirect('index')
+        return redirect('index-view')
 
 def moderation(request):
     return render(request, 'chat/moderation.html')

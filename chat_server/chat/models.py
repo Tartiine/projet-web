@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 class Chat(models.Model):
     name = models.CharField(max_length=40)
-    creator = models.ForeignKey(User, on_delete=models.CASCADE)
+    creator = models.ForeignKey(User, on_delete=models.PROTECT)
     creation_date = models.DateTimeField()
 
     def to_dict(self):
@@ -17,7 +17,7 @@ class Chat(models.Model):
         return dicchat
 
 class Message(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.PROTECT)
     chat = models.ForeignKey(Chat, on_delete=models.CASCADE)
     content = models.CharField(max_length=400)
     publication_date = models.DateTimeField()
