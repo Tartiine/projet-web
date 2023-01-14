@@ -1,6 +1,7 @@
 :root {
     --color-cstm-blue: #5f75ae;
     --color-cstm-blue-dark: #233155;
+    --color-cstm-semi-blue-dark: #516599;
     --color-cstm-blue-light: #8da4e0;
     --color-cstm-green: #9cd9b7;
     --color-cstm-semi-dark-green: #8dc9a8; 
@@ -257,11 +258,12 @@ h3 {
     margin-left: 0;
     margin-bottom: var(--main-gap);
 }
-#new-message-locked { font-style: italic; }
-
-#moderation-main-content {
-    padding: var(--main-padding);
+#new-message-locked {
+    font-size: calc(var(--text-size-main) - 0.5px);
+    font-style: italic;
 }
+
+#conversations-tab, #users-tab { cursor: pointer; }
 #moderation-tabs {
     margin: var(--main-padding) 0 0 0;
     display: flex;
@@ -283,14 +285,61 @@ h3 {
     transform: scale(1);
     transition: 0.15s var(--interpolation-hover);
 }
-
-#moderation-tabs li:nth-child(1) button {
-    background-color: var(--color-cstm-blue);
-    color: var(--color-text-light);
-    transform: scale(1.1);
+#moderation-main-content {
+    padding: var(--main-padding);
+    height: calc(100% - 2 * var(--main-padding));
+    overflow-y: scroll;
 }
-
-
+#conversations-list, #users-list {
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--main-gap);
+}
+#conversations-list>div:first-child, #users-list>div:first-child {
+    background-color: var(--color-cstm-blue-dark);
+    color: var(--color-text-light);
+    font-weight: bold;
+}
+.moderation-row {
+    display: flex;
+    width: calc(100% - 2 * var(--main-gap));
+    padding: calc(var(--main-gap) - 5px) var(--main-gap);
+    column-gap: calc(2 * var(--main-gap));
+    border-radius: 6px;
+    background-color: var(--color-cstm-blue-light);
+    color: var(--color-text-dark);
+}
+.moderation-row div {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    align-items: center;
+    flex: 1;
+}
+.moderation-row div:first-child { flex: 2; }
+.moderation-row div:nth-child(2) { flex: 2; }
+.moderation-row div:last-child {
+    flex: none;
+    width: 22px;
+    margin-left: auto;
+    text-align: end;
+    cursor: pointer;
+}
+.moderation-row svg {
+    display: block;
+    height: calc(var(--text-size-main) + 10px);
+    margin: 0 auto;
+}
+.moderation-row input, .moderation-row select {
+    border: none;
+    border-radius: 3px;
+    padding: 4px 5px 1px 5px;
+    background-color: var(--color-cstm-gray);
+    color: var(--color-text-light);
+    font-size: calc(var(--text-size-main) - 3px);
+    line-height: var(--text-size-main);
+    width: 100%;
+}
 
 .wave-background div {
     position: fixed;

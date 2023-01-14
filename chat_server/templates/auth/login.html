@@ -9,7 +9,7 @@
         <h3>Se connecter</h3>
         <form method="post" action="{% url 'account_login' %}">
             {% csrf_token %}
-            <input type="text" name="username" id="username" placeholder="Nom d'utilisateur">
+            <input type="text" name="username" id="username" maxlength="40" placeholder="Nom d'utilisateur">
             <input type="password" name="password" id="password" placeholder="Mot de passe">
             <div class="error">{{ error }}</div>
             <div id="login-main-bottom">

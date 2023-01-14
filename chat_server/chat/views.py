@@ -3,7 +3,8 @@ from django.views.generic.base import TemplateView
 from django.contrib.auth import logout
 from django.http import JsonResponse, HttpResponse
 from django.utils import timezone
-from .models import Chat, Message, User
+from .models import Chat, Message
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -18,7 +19,11 @@ class IndexView(TemplateView):
         return render(request, self.template_name, context)
 
 def moderation(request):
-    return render(request, 'chat/moderation.html')
+    template_name = "chat/moderation.html"
+    conversation_list = Chat.objects.order_by('-creation_date')[:]
+    user_list = User.objects.order_by('-date_joined')[:]
+    context = {'conversation_list': conversation_list, 'user_list': user_list}
+    return render(request, template_name, context)
 
 
 def thread(request):
