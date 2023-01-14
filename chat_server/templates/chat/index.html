@@ -70,6 +70,7 @@
             {% csrf_token %}
             <input type="text" name="new-conv" id="new-conv" autocomplete="off" placeholder="Nouvelle conversation">
         </form>
+        
                     
     </div>
     <div id="conversation-title">
@@ -98,6 +99,9 @@
             {% endfor %}
         {% endif %}
     </div>
+    
+
+
     <div id="writing-area">
         <form method="post" action="post.js">
             {% if user.is_authenticated %}

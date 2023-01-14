@@ -13,6 +13,13 @@
             <a href="{% url 'index-view' %}"><h1>Le tchat du laitier</h1></a>
             {% block header-buttons %} {% endblock %}
         </header>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
         <section class="full-center">
             {% block content %} {% endblock %}
         </section>

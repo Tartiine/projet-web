@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from django.utils import timezone
 from .models import Chat, Message
 from django.contrib.auth.models import User
-
+from django.contrib import messages
 # Create your views here.
 
 class IndexView(TemplateView):
@@ -24,13 +24,15 @@ class IndexView(TemplateView):
                 return redirect('account_login')
             new_conv = request.POST.get('new-conv', None)
             if new_conv:
-                new_chat = Chat(name=new_conv,creator=request.user, creation_date=timezone.now())
-                new_chat.save()
+                if Chat.objects.filter(name=new_conv).exists():   
+                    messages.error(request, 'This chat already exists')
+                else:
+                    new_chat = Chat(name=new_conv,creator=request.user, creation_date=timezone.now())
+                    new_chat.save()
         return redirect('index-view')
 
 def moderation(request):
     return render(request, 'chat/moderation.html')
-
 
 def thread(request):
     return render(request, 'thread.html')
@@ -86,7 +88,7 @@ def getMessages(request):
     chat = Chat.objects.get(name=request.GET['chatName'])
     messages = chat.message_set.only('author', 'chat', 'content', 'publication_date').all()
     data = [message.to_dict() for message in messages]
-
+   
     return JsonResponse({'chat': chat.name, 'messages': data})
 
 
