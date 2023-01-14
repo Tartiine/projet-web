@@ -45,9 +45,9 @@ def thread(request):
 # for test purposes only
 def init(request):
     print(request)
-    user1 = User(username="user1", rights=1)
+    user1 = User.objects.create_user(username="user1", password="UsEr1")
     user1.save()
-    user2 = User(username="user2", rights=1)
+    user2 = User.objects.create_user(username="user2", password="UsEr2")
     user2.save()
     chat = Chat(name="general", creator=user1, creation_date=timezone.now())
     chat.save()
@@ -92,6 +92,7 @@ def getChats(request):
 def getMessages(request):
     chat = Chat.objects.get(name=request.GET['chatName'])
     messages = chat.message_set.only('author', 'chat', 'content', 'publication_date').all()
+    print(messages)
     data = [message.to_dict() for message in messages]
    
     return JsonResponse({'chat': chat.name, 'messages': data})

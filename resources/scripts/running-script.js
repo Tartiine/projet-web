@@ -8,7 +8,6 @@ if(username != ""){
 function generateChat(messages){
     str = ""
     for(message of messages){
-        str += "<li>\n"
         if(message.author.username == username){
             str += "<div class=\"message-me\">\n"
         }else{
@@ -18,20 +17,24 @@ function generateChat(messages){
         str += "<p>" + message.content + "</p>\n"
         str += "<p>" + message.publication_date + "</p>\n"
         str += "</div>\n"
-        str += "</li>\n"
     }
     return str
 }
 
+function loadChat(chatname){
+    $.ajax('http://localhost:8000/chat/getMessages', {
+        method:'GET',
+        data: {
+            "chatName":chatname,
+        },
+    }).done( response => {
+        console.log(response)
+        $("#conversation-thread").html(generateChat(response.messages))
+        $("#conversation-thread").get(0).scrollTo(0, $("#conversation-thread").get(0).scrollHeight);
+    })
+}
+
+loadChat("general")
 
 
-$.ajax('http://localhost:8000/chat/getMessages', {
-    method:'GET',
-    data: {
-        "chatName":'general',
-    },
-}).done( response => {
-    console.log("response gotten")
-    console.log(response.messages)
-    $("#conversation-thread").html(generateChat(response.messages))
-})
+

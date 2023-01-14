@@ -1,7 +1,18 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Permission
 # Create your models here.
 
+def permission_to_dict(permission):
+    dicperm = {}
+    dicperm['name'] = permission.name
+    dicperm['content_type'] = permission.content_type
+    dicperm['codename'] = permission.codename
+    return dicperm
+def user_to_dict(user):
+    dicuser = {}
+    dicuser['username'] = user.username
+    dicuser['user_permissions'] = [permission_to_dict(permission) for permission in user.get_all_permissions()]
+    return dicuser
 
 class Chat(models.Model):
     name = models.CharField(max_length=40)
@@ -11,7 +22,7 @@ class Chat(models.Model):
     def to_dict(self):
         dicchat = {}
         dicchat['name'] = self.name
-        dicchat['author'] = self.creator.to_dict()
+        dicchat['creator'] = user_to_dict(self.creator)
         dicchat['creation_date'] = self.creation_date
         return dicchat
 
@@ -23,7 +34,7 @@ class Message(models.Model):
 
     def to_dict(self):
         dicmessage = {}
-        dicmessage['author'] = self.author.to_dict()
+        dicmessage['author'] = user_to_dict(self.author)
         dicmessage['chat'] = self.chat.to_dict()
         dicmessage['content'] = self.content
         dicmessage['publication_date'] = self.publication_date
