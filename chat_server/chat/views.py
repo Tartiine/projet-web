@@ -23,6 +23,7 @@ class IndexView(TemplateView):
         if request.method == 'POST':
             if not request.user.is_authenticated:
                 return redirect('account_login')
+            
             new_conv = request.POST.get('new-conv', None)
             if new_conv:
                 if Chat.objects.filter(name=new_conv).exists():   
@@ -30,6 +31,13 @@ class IndexView(TemplateView):
                 else:
                     new_chat = Chat(name=new_conv,creator=request.user, creation_date=timezone.now())
                     new_chat.save()
+                    
+            msg = request.POST.get('new-message', None)
+            if msg:
+                last_chat = Chat.objects.order_by('-creation_date')[0] #Replace with active chat
+                new_message = Message(author=request.user,chat=last_chat, content=msg, publication_date=timezone.now() )
+                new_message.save()
+                 
         return redirect('index-view')
 
 def moderation(request):
