@@ -78,7 +78,6 @@
         {% if conversation_list %}
             {% for message in message_list %}
             {% if message.chat == conversation %}
-                <li>
                 {% if user.is_authenticated %}
                     {% if user == message.creator %}
                         <div class="message-me">
@@ -92,7 +91,6 @@
                         <p>{{ message.content }}</p>
                         <p>{{ message.publication_date }}</p>
                     </div>
-                </li>
             {% endif %}
             {% endfor %}
         {% endif %}

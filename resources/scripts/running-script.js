@@ -8,7 +8,6 @@ if(username != ""){
 function generateChat(messages){
     str = ""
     for(message of messages){
-        str += "<li>\n"
         if(message.author.username == username){
             str += "<div class=\"message-me\">\n"
         }else{
@@ -18,7 +17,6 @@ function generateChat(messages){
         str += "<p>" + message.content + "</p>\n"
         str += "<p>" + message.publication_date + "</p>\n"
         str += "</div>\n"
-        str += "</li>\n"
     }
     return str
 }
