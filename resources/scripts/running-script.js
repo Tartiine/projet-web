@@ -23,15 +23,19 @@ function generateChat(messages){
     return str
 }
 
+function loadChat(chatname){
+    $.ajax('http://localhost:8000/chat/getMessages', {
+        method:'GET',
+        data: {
+            "chatName":chatname,
+        },
+    }).done( response => {
+        console.log(response)
+        $("#conversation-thread").html(generateChat(response.messages))
+    })
+}
+
+loadChat("general")
 
 
-$.ajax('http://localhost:8000/chat/getMessages', {
-    method:'GET',
-    data: {
-        "chatName":'general',
-    },
-}).done( response => {
-    console.log("response gotten")
-    console.log(response.messages)
-    $("#conversation-thread").html(generateChat(response.messages))
-})
+
