@@ -32,6 +32,7 @@ function loadChat(chatname){
     }).done( response => {
         console.log(response)
         $("#conversation-thread").html(generateChat(response.messages))
+        $("#conversation-thread").get(0).scrollTo(0, $("#conversation-thread").get(0).scrollHeight);
     })
 }
 
