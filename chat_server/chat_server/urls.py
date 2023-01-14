@@ -21,7 +21,5 @@ urlpatterns = [
     path('auth/', include('auth.urls')),
     path('chat/', include('chat.urls')),
     path ('', include('chat.urls')) ,
-    #path('accounts/', include('allauth.urls')),
-    #re_path(r'^thread/$', TemplateView.as_view(template_name="thread.html"), name='thread'),
     
 ]

@@ -52,12 +52,24 @@
                 <path id = "show-button-graphics" d="M5,10 h70 M5,40 h70 M5,70 h70"/>
             </g>
         </svg>
-        <svg viewBox="0 0 80 80" id="add-conv-button">
+        
+        <script>
+            function submitForm() {
+                var form = document.getElementById("form_conv");
+                if(form) form.submit();
+            }
+        </script>    
+                    
+        <svg viewBox="0 0 80 80" id="add-conv-button" onClick="submitForm()">
             <g fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round">
-                <path id = "add-conv-button-graphics" d="M40,40 L40,40 M40,40 L40,40"/>
+                <path id="add-conv-button-graphics" d="M40,40 L40,40 M40,40 L40,40"/>
             </g>
         </svg>
-        <input type="text" name="new-conv" id="new-conv" autocomplete="off" maxlength="50" placeholder="Nouvelle conversation">
+                    
+        <form method="post" id="form_conv">
+            {% csrf_token %}
+            <input type="text" name="new-conv" id="new-conv" autocomplete="off" placeholder="Nouvelle conversation">
+        </form>       
     </div>
     <div id="conversation-title">
         <h3>Sujet de la conversation n°1</h3>
@@ -85,6 +97,9 @@
             {% endfor %}
         {% endif %}
     </div>
+    
+
+
     <div id="writing-area">
         <form method="post" action="post.js">
             {% if user.is_authenticated %}
