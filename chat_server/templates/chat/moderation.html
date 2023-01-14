@@ -3,7 +3,7 @@
 
 {% block header-buttons %}
     {% if user.is_authenticated %}
-        <p>Bienvenue, {{ user.username }}</p>
+        <p id="header-gap">Bienvenue, {{ user.username }}</p>
         <a href="{% url 'index-view' %}" title="Retour aux conversations" class="header-button">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                 <!-- Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com Copyright 2022 Fonticons, Inc. -->
@@ -16,7 +16,7 @@
         </a>
         <a href="{% url 'index-view' %}?logout=1" class="header-button">Se déconnecter</a>
     {% else %}
-        <p>Vous n'êtes pas encore connecté</p>
+        <p id="header-gap">Vous n'êtes pas encore connecté</p>
         <a href="{% url 'account_login' %}" class="header-button">Se connecter</a>
         <a href="{% url 'account_signup' %}" class="header-button">S'inscrire</a>
     {% endif %}
@@ -86,7 +86,7 @@
                             <form method="post" action="change_rights.js">
                                 {% if user.username == usr.username %}
                                     <select name="rights" id="rights">
-                                        <option>Lecture uniquement</option>
+                                        <option>Lecture simple</option>
                                         <option>Ecriture simple</option>
                                         <option>Ecriture avancé</option>
                                         <option>Modération simple</option>

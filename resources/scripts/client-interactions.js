@@ -50,3 +50,5 @@ function moderationSwitchTab(i) {
 $("#show-button").click(function(){showHideDiscussions()});
 $("#moderation-tabs li").click(function(){moderationSwitchTab($(this).index() + 1)});
 moderationSwitchTab(1);
+
+$("#new-message").emojioneArea();

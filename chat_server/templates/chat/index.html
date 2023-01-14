@@ -3,7 +3,7 @@
 
 {% block header-buttons %}
     {% if user.is_authenticated %}
-        <p>Bienvenue, <span id="username">{{ user.username }}</span></p>
+        <p id="header-gap">Bienvenue, <span id="username">{{ user.username }}</span></p>
         <a href="{% url 'moderation-view' %}" title="Modération" class="header-button">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke="currentColor">
                 <!--Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com Copyright 2022 Fonticons, Inc. -->
@@ -21,7 +21,7 @@
         </a>
         <a href="{% url 'index-view' %}?logout=1" class="header-button">Se déconnecter</a>
     {% else %}
-        <p>Vous n'êtes pas encore connecté<span id="username"></span></p>
+        <p id="header-gap">Vous n'êtes pas encore connecté<span id="username"></span></p>
         <a href="{% url 'account_login' %}" class="header-button">Se connecter</a>
         <a href="{% url 'account_signup' %}" class="header-button">S'inscrire</a>
     {% endif %}
@@ -39,7 +39,6 @@
                     <div class="conversation">
                         <p>{{ conversation.name }}</p>
                         <p>Créé par {{ conversation.creator.username }} le {{ conversation.creation_date }}</p>
-                        <!--<p>Mis à jour par Tartiine le 11/01/2023 22:52</p>-->
                     </div>
                 </li>
                 {% endfor %}
@@ -78,7 +77,6 @@
         {% if conversation_list %}
             {% for message in message_list %}
             {% if message.chat == conversation %}
-                <li>
                 {% if user.is_authenticated %}
                     {% if user == message.creator %}
                         <div class="message-me">
@@ -92,7 +90,6 @@
                         <p>{{ message.content }}</p>
                         <p>{{ message.publication_date }}</p>
                     </div>
-                </li>
             {% endif %}
             {% endfor %}
         {% endif %}

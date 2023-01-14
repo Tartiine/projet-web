@@ -6,6 +6,7 @@
     --color-text-light: #dfdfdf;
     --color-text-semilight: #b5b5b5;
     --color-text-dark: #202020;
+    --color-text-error: #aa3535;
 
     --header-size: 60px;
 
@@ -131,6 +132,12 @@ header a:first-child { line-height: var(--header-size); margin-right: auto;}
     transition: 0.15s var(--interpolation-hover);
 }
 #login-main-bottom a:hover { color: var(--color-text-semilight); }
+
+.error {
+    color: var(--color-text-error);
+    font-size: var(--login-text-size-main);
+    font-weight: bold;
+}
 
 .wave-background div {
     position: fixed;

@@ -7,19 +7,20 @@
         <meta charset="utf-8">
         {% load static %}
         <link rel="stylesheet" href="{% static 'stylesheets/style-main.css' %}">
+        <link rel="stylesheet" href="{% static 'stylesheets/emojionearea.css' %}"> <!-- Emoji stylesheet -->
     </head>
     {% block body %} {% endblock %}
         <header>
             <a href="{% url 'index-view' %}"><h1>Le tchat du laitier</h1></a>
+            {% if messages %}
+                <div class="error-messages">
+                    {% for message in messages %}
+                    <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
             {% block header-buttons %} {% endblock %}
         </header>
-            {% if messages %}
-                <ul class="messages">
-                    {% for message in messages %}
-                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
         <section class="full-center">
             {% block content %} {% endblock %}
         </section>
@@ -30,6 +31,7 @@
     </body>
 
     <script type="text/javascript" src="{% static 'scripts/jquery-3.6.3.js' %}"></script>
+    <script type="text/javascript" src="{% static 'scripts/emojionearea.js' %}"></script> <!-- Emoji plugin -->
     <script type="text/javascript" src="{% static 'scripts/client-interactions.js' %}"></script>
     <script type="text/javascript" src="{% static 'scripts/running-script.js' %}"></script>
 </html>
