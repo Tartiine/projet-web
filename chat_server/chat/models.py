@@ -1,21 +1,12 @@
 from django.db import models
 from django.forms import model_to_dict
-
+from django.contrib.auth.models import User
 # Create your models here.
 
-class User(models.Model):
-    username = models.CharField(max_length=40)
-    rights = models.IntegerField()
-
-    def to_dict(self):
-        dicuser = {}
-        dicuser['username'] = self.username
-        dicuser['rights'] = self.rights
-        return dicuser
 
 class Chat(models.Model):
     name = models.CharField(max_length=40)
-    creator = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    creator = models.ForeignKey(User, on_delete=models.CASCADE)
     creation_date = models.DateTimeField()
 
     def to_dict(self):
