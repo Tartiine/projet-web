@@ -70,6 +70,7 @@
             <input type="text" name="new-conv" id="new-conv" autocomplete="off" placeholder="Nouvelle conversation">
         </form>       
     </div>
+    
     <div id="conversation-title">
         <h3>Sujet de la conversation n°1</h3>
     </div>
@@ -98,14 +99,17 @@
 
 
     <div id="writing-area">
-        <form method="post" > <!--action="post.js"-->
-        {% csrf_token %}
+
+
             {% if user.is_authenticated %}
-                <input type="text" name="new-message" id="new-message" autocomplete="off" placeholder="Entrez un message">
+                <form method="post" > <!--action="post.js"-->
+                    {% csrf_token %}
+                    <input type="text" name="new-message" id="new-message" autocomplete="off" placeholder="Entrez un message">
+                </form>
             {% else %}
                 <p id="new-message-locked"> Connectez-vous pour participer à la conversation </p>
             {% endif %}
-        </form>
+
     </div>
 </div>
 {% endblock %}

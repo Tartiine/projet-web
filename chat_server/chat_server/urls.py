@@ -21,5 +21,4 @@ urlpatterns = [
     path('auth/', include('auth.urls')),
     path('chat/', include('chat.urls')),
     path ('', include('chat.urls')) ,
-    
 ]
