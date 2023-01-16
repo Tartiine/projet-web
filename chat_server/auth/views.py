@@ -3,6 +3,7 @@ from allauth.account.views import LoginView, SignupView
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.utils import timezone
+from chat.models import Chat
 
 # Create your views here.
 class CustomSignupView(SignupView):
@@ -41,3 +42,6 @@ class CustomLoginView(LoginView):
             return redirect('index-view')
         else:
             return render(request, self.template_name, {'error': 'Invalid login credentials'})
+
+
+

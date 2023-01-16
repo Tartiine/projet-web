@@ -28,6 +28,7 @@ urlpatterns = [
     path('saveMessage', views.saveMessage, name ='message-creation'),
     path('init', views.init, name="test-initialization"),
     path ('', IndexView.as_view(), name = 'index-view'),
+    path('delete_conversation/', views.delete_conversation, name='delete-conversation'),
 ]
 
 

@@ -114,3 +114,11 @@ def createChat(request):
 def saveMessage(request):
     print(request)
     return
+
+def delete_conversation(request):
+            import json
+            chat_name = json.loads(request.body.decode())['data']
+            if chat_name:
+                chat = Chat.objects.filter(name=chat_name)
+                chat.delete()
+            return redirect('../moderation')
