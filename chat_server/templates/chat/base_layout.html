@@ -7,6 +7,7 @@
         <meta charset="utf-8">
         {% load static %}
         <link rel="stylesheet" href="{% static 'stylesheets/style-main.css' %}">
+        <link rel="stylesheet" href="{% static 'stylesheets/style-emoji.css' %}">
     </head>
     {% block body %} {% endblock %}
         <header>
@@ -31,5 +32,6 @@
 
     <script type="text/javascript" src="{% static 'scripts/jquery-3.6.3.js' %}"></script>
     <script type="text/javascript" src="{% static 'scripts/client-interactions.js' %}"></script>
+    <script type="text/javascript" src="{% static 'scripts/emoji.js' %}"></script>
     <script type="text/javascript" src="{% static 'scripts/running-script.js' %}"></script>
 </html>
