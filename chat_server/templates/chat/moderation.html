@@ -46,7 +46,7 @@
                     <script>
                         function deleteConversation(data) {
                             var csrf_token = "{{ csrf_token }}";
-                            fetch('/delete_conversation/', {
+                            fetch('/deleteConversation/', {
                                 method: 'POST',
                                 headers: {
                                     'X-CSRFToken': csrf_token,
@@ -101,14 +101,18 @@
                     <div class="moderation-row">
                         <div><p>{{ usr.username }}</p></div>
                         <div>
-                            <form method="post" action="change_password.js">
+                        
                                 {% if user.username == usr.username %}
+                                <form method="post" id="form_password" action="{% url 'change-password' %}">
+                                    {% csrf_token %}
                                     <input type="text" name="new-password" id="new-password" autocomplete="off"
                                     placeholder="Changer le mot de passe">
+                                    
+                                </form>
                                 {% else %}
                                     <p>Vous ne pouvez pas modifier le mot de passe de ce compte</p>
                                 {% endif %}
-                            </form>
+                            
                         </div>
                         <div>
                             <form method="post" action="change_rights.js">

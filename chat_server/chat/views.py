@@ -47,6 +47,24 @@ def moderation(request):
     context = {'conversation_list': conversation_list, 'user_list': user_list}
     return render(request, template_name, context)
 
+
+def changePassword(request):
+    new_password = request.POST.get('new-password', None)
+    if new_password:
+        current_user = request.user
+        if current_user.check_password(new_password):
+            messages.error(request, 'You can\'t chose the same password')
+            return redirect('../moderation')
+        else:
+            # Update the user's password
+            current_user.set_password(new_password)
+            current_user.save()
+            messages.success(request, 'Password successfully changed')
+            return redirect('index-view')
+    else:
+        messages.error(request, 'No password provided')
+        return redirect('../moderation')
+
 def thread(request):
     return render(request, 'thread.html')
 
@@ -115,7 +133,7 @@ def saveMessage(request):
     print(request)
     return
 
-def delete_conversation(request):
+def deleteConversation(request):
             import json
             chat_name = json.loads(request.body.decode())['data']
             if chat_name:
