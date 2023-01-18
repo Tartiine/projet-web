@@ -22,7 +22,7 @@ urlpatterns = [
     path('index/', IndexView.as_view(), name='index-view'),
     path ('moderation', views.moderation, name ='moderation-view'),
     path ('thread', views.thread, name ='thread-view'),
-
+    path('rights', views.rights, name ='rights-view'),
     path ('', IndexView.as_view(), name = 'index-view'),
     path('deleteConversation/', views.deleteConversation, name='delete-conversation'),
     path('deleteUser/', views.deleteUser, name='delete-user'),
