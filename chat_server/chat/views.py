@@ -47,6 +47,13 @@ def moderation(request):
     context = {'conversation_list': conversation_list, 'user_list': user_list}
     return render(request, template_name, context)
 
+def rights(request):
+    template_name = "chat/rights.html"
+    main_user = User.objects.filter(username="=== INSERER LE NOM ICI ===").first()
+    conversation_list = Chat.objects.order_by('-creation_date')[:]
+    context = {'main_user': main_user, 'conversation_list':conversation_list}
+    return render(request, template_name, context)
+
 
 def changePassword(request):
     new_password = request.POST.get('new-password', None)

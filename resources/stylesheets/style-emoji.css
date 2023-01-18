@@ -23,6 +23,7 @@
     right: 15px;
     height: fit-content;
     width: fit-content;
+    cursor: pointer;
 }
 #emoji-button svg {
     display: block;
@@ -68,6 +69,11 @@
     font-size: 25px;
     background-color: var(--color-menu-button);
     border: none;
+    cursor: pointer;
+    transition: 0.15s var(--interpolation-hover);
 
     font-family: "EleganTech", Arial, Helvetica, sans-serif;
+}
+.emoji-menu-button:hover {
+    transform: scale(1.1);
 }

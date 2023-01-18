@@ -72,7 +72,7 @@
     </div>
     
     <div id="conversation-title">
-        <h3>Sujet de la conversation n°1</h3>
+        <h3></h3>
     </div>
     <div id="conversation-thread">
         {% if conversation_list %}
@@ -100,7 +100,7 @@
 
     <div id="writing-area">
         {% if user.is_authenticated %}
-            <form method="post" > <!--action="post.js"-->
+            <form method="post"> <!--action="post.js"-->
                 {% csrf_token %}
                 <input type="text" name="new-message" id="new-message" autocomplete="off" placeholder="Entrez un message">
                 <div id="emoji-button">
