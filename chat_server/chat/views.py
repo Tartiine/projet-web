@@ -6,6 +6,7 @@ from django.utils import timezone
 from .models import Chat, Message
 from django.contrib.auth.models import User
 from django.contrib import messages
+import datetime
 
 # Create your views here.
 
@@ -43,7 +44,7 @@ class IndexView(TemplateView):
                 if Chat.objects.filter(name=new_conv).exists():   
                     messages.error(request, 'This chat already exists')
                 else:
-                    new_chat = Chat(name=new_conv,creator=request.user, creation_date=timezone.now())
+                    new_chat = Chat(name=new_conv,creator=request.user, creation_date=timezone.make_aware(datetime.datetime.now()))
                     new_chat.save()
                     
             msg = request.POST.get('new-message', None)
@@ -51,7 +52,7 @@ class IndexView(TemplateView):
             if msg:
                 print(msg)
                 last_chat = Chat.objects.order_by('-creation_date')[0]   #Replace with active chat
-                new_message = Message(author=request.user,chat=last_chat, content=msg, publication_date=timezone.now() )
+                new_message = Message(author=request.user,chat=last_chat, content=msg, publication_date=timezone.make_aware(datetime.datetime.now()) )
                 new_message.save()   
         return redirect('index-view')
 
@@ -97,37 +98,37 @@ def init(request):
     user1.save()
     user2 = User.objects.create_user(username="user2", password="UsEr2")
     user2.save()
-    chat = Chat(name="general", creator=user1, creation_date=timezone.now())
+    chat = Chat(name="general", creator=user1, creation_date=timezone.make_aware(datetime.datetime.now()))
     chat.save()
     m1 = Message(author=user1, chat=chat, content="The first of a lot of random messages",
-                 publication_date=timezone.now())
+                 publication_date=timezone.make_aware(datetime.datetime.now()))
     m1.save()
     m2 = Message(author=user1, chat=chat, content="The second of a lot of random messages",
-                 publication_date=timezone.now())
+                 publication_date=timezone.make_aware(datetime.datetime.now()))
     m2.save()
     m3 = Message(author=user2, chat=chat, content="The third of a lot of random messages",
-                 publication_date=timezone.now())
+                 publication_date=timezone.make_aware(datetime.datetime.now()))
     m3.save()
     m4 = Message(author=user1, chat=chat, content="The fourth of a lot of random messages",
-                 publication_date=timezone.now())
+                 publication_date=timezone.make_aware(datetime.datetime.now()))
     m4.save()
     m5 = Message(author=user2, chat=chat, content="The fifth of a lot of random messages",
-                 publication_date=timezone.now())
+                 publication_date=timezone.make_aware(datetime.datetime.now()))
     m5.save()
     m6 = Message(author=user2, chat=chat, content="The sixth of a lot of random messages",
-                 publication_date=timezone.now())
+                 publication_date=timezone.make_aware(datetime.datetime.now()))
     m6.save()
     m7 = Message(author=user1, chat=chat, content="The seventh of a lot of random messages",
-                 publication_date=timezone.now())
+                 publication_date=timezone.make_aware(datetime.datetime.now()))
     m7.save()
     m8 = Message(author=user1, chat=chat, content="The eighth of a lot of random messages",
-                 publication_date=timezone.now())
+                 publication_date=timezone.make_aware(datetime.datetime.now()))
     m8.save()
     m9 = Message(author=user1, chat=chat, content="The ninth of a lot of random messages",
-                 publication_date=timezone.now())
+                 publication_date=timezone.make_aware(datetime.datetime.now()))
     m9.save()
     m10 = Message(author=user2, chat=chat, content="The tenth of a lot of random messages",
-                  publication_date=timezone.now())
+                  publication_date=timezone.make_aware(datetime.datetime.now()))
     m10.save()
 
 
