@@ -3,6 +3,7 @@ from django.views.generic.base import TemplateView
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.utils import timezone
+import datetime
 
 # Create your views here.
 class CustomSignupView(TemplateView):
@@ -17,7 +18,7 @@ class CustomSignupView(TemplateView):
             if User.objects.filter(username=userName).exists():
                 return render(request, self.template_name, {'error': 'This username is already associated to a account'})
             else:
-                user = User.objects.create_user(username=userName, password=Password, date_joined=timezone.now())
+                user = User.objects.create_user(username=userName, password=Password, date_joined=timezone.make_aware(datetime.datetime.now()))
                 if User.objects.exists() == 0:
                     user.is_staff = True
                     user.is_superuser = True
