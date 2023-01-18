@@ -19,11 +19,11 @@ class IndexView(TemplateView):
             conv_name = request.session['actual_conv']
             try:
                 conv = Chat.objects.get(name=conv_name)
-                message_list = Message.objects.filter(chat=conv).order_by('-publication_date')
+                message_list = Message.objects.filter(chat=conv).order_by('publication_date')[:]
             except Chat.DoesNotExist:
-                message_list = Message.objects.order_by('-publication_date')[::-1]
+                message_list = Message.objects.order_by('publication_date')[:]
         else:
-            message_list = Message.objects.order_by('-publication_date')[::-1]
+            message_list = Message.objects.order_by('publication_date')[:]
         conversation_list = Chat.objects.order_by('-creation_date')[:]
         if 'actual_conv' in request.session:
             context = {'conversation_list': conversation_list,'message_list': message_list, 'actual_conv':conv_name}
@@ -50,8 +50,9 @@ class IndexView(TemplateView):
             print(msg)
             if msg:
                 print(msg)
-                last_chat = Chat.objects.order_by('-creation_date')[0]   #Replace with active chat
-                new_message = Message(author=request.user,chat=last_chat, content=msg, publication_date=timezone.now() )
+                #last_chat = Chat.objects.order_by('-creation_date')[0]   Replace with active chat
+                conv = Chat.objects.get(name=request.session['actual_conv'])
+                new_message = Message(author=request.user,chat=conv, content=msg, publication_date=timezone.now() )
                 new_message.save()   
         return redirect('index-view')
 
