@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 1440 320"
+   version="1.1"
+   id="svg5191"
+   sodipodi:docname="wave3.svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <path
+     fill="#f0f0fa"
+     fill-opacity="1"
+     d="m 0,180 c 78.758119,0 143.93266,62.20468 301.96445,49.14715 C 459.99624,216.08962 561.0188,132.98651 720,101.3 800,85 880,75 960,106.7 1040,139 1120,213 1200,224 c 93.4,4.40611 128.1206,-44 240,-44 v 140 c -480,0 -960,0 -1440,0 z"
+     id="path5189"
+     sodipodi:nodetypes="czccccccc" />
+</svg>

@@ -12,9 +12,23 @@ from django.contrib import messages
 class IndexView(TemplateView):
     template_name = "chat/index.html"
     
+    
+    
     def get(self, request, *args, **kwargs):
+        if 'actual_conv' in request.session:
+            conv_name = request.session['actual_conv']
+            try:
+                conv = Chat.objects.get(name=conv_name)
+                message_list = Message.objects.filter(chat=conv).order_by('-publication_date')
+            except Chat.DoesNotExist:
+                message_list = Message.objects.order_by('-publication_date')[::-1]
+        else:
+            message_list = Message.objects.order_by('-publication_date')[::-1]
         conversation_list = Chat.objects.order_by('-creation_date')[:]
-        context = {'conversation_list': conversation_list}
+        if 'actual_conv' in request.session:
+            context = {'conversation_list': conversation_list,'message_list': message_list, 'actual_conv':conv_name}
+        else:
+            context = {'conversation_list': conversation_list,'message_list': message_list}
         if request.GET.get('logout'):
             logout(request)
         return render(request, self.template_name, context)
@@ -33,11 +47,12 @@ class IndexView(TemplateView):
                     new_chat.save()
                     
             msg = request.POST.get('new-message', None)
+            print(msg)
             if msg:
-                last_chat = Chat.objects.order_by('-creation_date')[0] #Replace with active chat
+                print(msg)
+                last_chat = Chat.objects.order_by('-creation_date')[0]   #Replace with active chat
                 new_message = Message(author=request.user,chat=last_chat, content=msg, publication_date=timezone.now() )
-                new_message.save()
-                 
+                new_message.save()   
         return redirect('index-view')
 
 def moderation(request):
@@ -67,7 +82,7 @@ def changePassword(request):
 
 def thread(request):
     return render(request, 'thread.html')
-
+"""
 # for test purposes only
 def init(request):
     print(request)
@@ -132,6 +147,7 @@ def createChat(request):
 def saveMessage(request):
     print(request)
     return
+"""
 
 def deleteConversation(request):
             import json
@@ -139,4 +155,28 @@ def deleteConversation(request):
             if chat_name:
                 chat = Chat.objects.filter(name=chat_name)
                 chat.delete()
+            return redirect('../moderation')
+        
+def deleteUser(request):
+            import json
+            user_name = json.loads(request.body.decode())['data']
+            if user_name:
+                user = User.objects.filter(username=user_name)
+                user.delete()
+            return redirect('../moderation')
+
+def actualConv(request):
+            import json
+            conv_name = json.loads(request.body.decode())['data']
+            if conv_name:
+                request.session['actual_conv'] = conv_name
+            print("function actualConv")   
+            return redirect('index-view')
+        
+def deleteUser(request):
+            import json
+            user_name = json.loads(request.body.decode())['data']
+            if user_name:
+                user = User.objects.filter(username=user_name)
+                user.delete()
             return redirect('../moderation')

@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
-from allauth.account.views import LoginView, SignupView
+from django.views.generic.base import TemplateView
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.utils import timezone
 
 # Create your views here.
-class CustomSignupView(SignupView):
+class CustomSignupView(TemplateView):
     template_name = "auth/register.html"
     
     def post(self, request, *args, **kwargs):
@@ -27,7 +27,7 @@ class CustomSignupView(SignupView):
         else:
             return render(request, self.template_name, {'error': 'Error the account was not created'})
 
-class CustomLoginView(LoginView):
+class CustomLoginView(TemplateView):
     template_name = "auth/login.html"
 
     def post(self, request, *args, **kwargs):

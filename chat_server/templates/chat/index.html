@@ -32,11 +32,28 @@
 {% block content %}
 <div id="main-container">
     <div id="sidebar">
+        <script>
+            function actualConv(data) {
+                var csrf_token = "{{ csrf_token }}";
+                fetch('/actualConv/', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': csrf_token,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({data})
+                }).then(response => {
+                if (response.status === 200) {
+                    window.location.href = '/';
+                }
+            });
+            }
+        </script>
         <ul id="conversation-list">
             {% if conversation_list %}
                 {% for conversation in conversation_list %}
                 <li>
-                    <div class="conversation">
+                    <div class="conversation" onclick="actualConv('{{ conversation.name }}')" >
                         <p>{{ conversation.name }}</p>
                         <p>Créé par {{ conversation.creator.username }} le {{ conversation.creation_date }}</p>
                     </div>
@@ -72,14 +89,13 @@
     </div>
     
     <div id="conversation-title">
-        <h3>Sujet de la conversation n°1</h3>
+        <h3>{{ actual_conv }}</h3>
     </div>
     <div id="conversation-thread">
         {% if conversation_list %}
             {% for message in message_list %}
-            {% if message.chat == conversation %}
                 {% if user.is_authenticated %}
-                    {% if user == message.creator %}
+                    {% if user == message.author %}
                         <div class="message-me">
                     {% else %}
                         <div class="message-other">
@@ -91,16 +107,21 @@
                         <p>{{ message.content }}</p>
                         <p>{{ message.publication_date }}</p>
                     </div>
-            {% endif %}
+
             {% endfor %}
         {% endif %}
     </div>
     
-
+    <script>
+        function submitForm1() {
+            var form = document.getElementById("form_msg");
+            if(form) form.submit();
+        }
+    </script> 
 
     <div id="writing-area">
         {% if user.is_authenticated %}
-            <form method="post" > <!--action="post.js"-->
+            <form method="post" id="form_msg" > 
                 {% csrf_token %}
                 <input type="text" name="new-message" id="new-message" autocomplete="off" placeholder="Entrez un message">
             </form>
