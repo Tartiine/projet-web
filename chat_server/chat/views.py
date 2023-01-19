@@ -132,7 +132,7 @@ def init(request):
     m10 = Message(author=user2, chat=chat, content="The tenth of a lot of random messages",
                   publication_date=timezone.make_aware(datetime.datetime.now()))
     m10.save()
-
+"""
 
 def getChats(request):
     chats = Chat.objects.all()
@@ -147,7 +147,7 @@ def getMessages(request):
     data = [message.to_dict() for message in messages]
    
     return JsonResponse({'chat': chat.name, 'messages': data})
-"""
+
 
 def createChat(request):
     print(request)
