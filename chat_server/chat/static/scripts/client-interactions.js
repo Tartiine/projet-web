@@ -47,6 +47,17 @@ function moderationSwitchTab(i) {
     }
 }
 
+function checkAll(reference, index) {
+    value = reference.is(':checked');
+    $("#rights-conversation-list .rights-row").each(
+        function() { $(this).children().eq(index).children().first().prop("checked", value); }
+    );
+}
+
 $("#show-button").click(function(){showHideDiscussions()});
 $("#moderation-tabs li").click(function(){moderationSwitchTab($(this).index() + 1)});
 moderationSwitchTab(1);
+
+for (let i = 1; i < 4; i++) {
+    $("#rights-per-conversation-all label:nth-child("+(i + 1)+") input").click(function(){checkAll($(this), i)});
+}

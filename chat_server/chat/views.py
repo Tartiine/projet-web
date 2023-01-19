@@ -53,7 +53,7 @@ class IndexView(TemplateView):
                 print(msg)
                 #last_chat = Chat.objects.order_by('-creation_date')[0]   Replace with active chat
                 conv = Chat.objects.get(name=request.session['actual_conv'])
-                new_message = Message(author=request.user,chat=conv, content=msg, publication_date=timezone.now() )
+                new_message = Message(author=request.user,chat=conv, content=msg, publication_date=timezone.make_aware(datetime.datetime.now()) )
                 new_message.save()   
         return redirect('index-view')
 
