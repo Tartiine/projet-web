@@ -49,7 +49,7 @@ class IndexView(TemplateView):
             msg = request.POST.get('new-message', None)
             if msg:
                 if Chat.objects.exists():
-                    new_message = Message(author=request.user,chat=Chat.objects.get(name=request.session['actual_conv']), content=msg, publication_date=timezone.now() )
+                    new_message = Message(author=request.user,chat=Chat.objects.get(name=request.session['actual_conv']), content=msg, publication_date=timezone.make_aware(datetime.datetime.now()) )
                     new_message.save()
                 else: 
                     messages.error(request, 'You have to create a chat room to send messages')
