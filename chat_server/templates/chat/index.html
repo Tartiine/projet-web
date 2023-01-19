@@ -98,7 +98,7 @@
                     {% if user == message.author %}
                         <div class="message-me">
                     {% else %}
-                        <div class="message-other">
+                        <div class="message-other"> 
                     {% endif %}
                 {% else %}
                     <div class="message-other">
@@ -111,11 +111,15 @@
             {% endfor %}
         {% endif %}
     </div>
-    
     <script>
         function submitForm1() {
             var form = document.getElementById("form_msg");
-            if(form) form.submit();
+            if(form) {
+                form.submit();
+                setTimeout(function(){
+                    document.getElementById("conversation-thread").scrollTop = document.getElementById("conversation-thread").scrollHeight;
+                }, 100);
+            }
         }
     </script>
 

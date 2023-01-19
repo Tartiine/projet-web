@@ -24,8 +24,9 @@ class IndexView(TemplateView):
             except Chat.DoesNotExist:
                 message_list = Message.objects.order_by('publication_date')[:]
         else:
-            conv = Chat.objects.order_by('-creation_date')[0]
-            conv_name = conv.name
+            request.session['actual_conv'] = Chat.objects.order_by('-creation_date')[0].name
+            conv_name = request.session['actual_conv']
+            conv = Chat.objects.get(name=conv_name)
         message_list = Message.objects.filter(chat=conv).order_by('publication_date')[:] 
         conversation_list = Chat.objects.order_by('-creation_date')[:] 
         context = {'conversation_list': conversation_list,'message_list': message_list, 'actual_conv':conv_name}
@@ -49,9 +50,7 @@ class IndexView(TemplateView):
             msg = request.POST.get('new-message', None)
             if msg:
                 if Chat.objects.exists():
-                    #last_chat = Chat.objects.order_by('-creation_date')[0]
-                    conv = Chat.objects.get(name=request.session['actual_conv'])
-                    new_message = Message(author=request.user,chat=conv, content=msg, publication_date=timezone.now() )
+                    new_message = Message(author=request.user,chat=Chat.objects.get(name=request.session['actual_conv']), content=msg, publication_date=timezone.now() )
                     new_message.save()
                 else: 
                     messages.error(request, 'You have to create a chat room to send messages')
@@ -131,7 +130,7 @@ def init(request):
     m10 = Message(author=user2, chat=chat, content="The tenth of a lot of random messages",
                   publication_date=timezone.make_aware(datetime.datetime.now()))
     m10.save()
-"""
+
 
 def getChats(request):
     chats = Chat.objects.all()
@@ -189,6 +188,7 @@ def saveMessage(request):
 
     return JsonResponse({'chat': chat.name, 'messages': data})
 
+"""
 
 def deleteConversation(request):
             import json
