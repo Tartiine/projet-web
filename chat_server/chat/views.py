@@ -131,7 +131,7 @@ def init(request):
     m10 = Message(author=user2, chat=chat, content="The tenth of a lot of random messages",
                   publication_date=timezone.make_aware(datetime.datetime.now()))
     m10.save()
-
+"""
 
 def getChats(request):
     chats = Chat.objects.all()
