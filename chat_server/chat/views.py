@@ -21,16 +21,14 @@ class IndexView(TemplateView):
             conv_name = request.session['actual_conv']
             try:
                 conv = Chat.objects.get(name=conv_name)
-                message_list = Message.objects.filter(chat=conv).order_by('publication_date')[:]
             except Chat.DoesNotExist:
                 message_list = Message.objects.order_by('publication_date')[:]
         else:
-            message_list = Message.objects.order_by('publication_date')[:]
-        conversation_list = Chat.objects.order_by('-creation_date')[:]
-        if 'actual_conv' in request.session:
-            context = {'conversation_list': conversation_list,'message_list': message_list, 'actual_conv':conv_name}
-        else:
-            context = {'conversation_list': conversation_list,'message_list': message_list}
+            conv = Chat.objects.order_by('-creation_date')[0]
+            conv_name = conv.name
+        message_list = Message.objects.filter(chat=conv).order_by('publication_date')[:] 
+        conversation_list = Chat.objects.order_by('-creation_date')[:] 
+        context = {'conversation_list': conversation_list,'message_list': message_list, 'actual_conv':conv_name}
         if request.GET.get('logout'):
             logout(request)
         return render(request, self.template_name, context)
@@ -49,13 +47,14 @@ class IndexView(TemplateView):
                     new_chat.save()
 
             msg = request.POST.get('new-message', None)
-            print(msg)
             if msg:
-                print(msg)
-                #last_chat = Chat.objects.order_by('-creation_date')[0]   Replace with active chat
-                conv = Chat.objects.get(name=request.session['actual_conv'])
-                new_message = Message(author=request.user,chat=conv, content=msg, publication_date=timezone.now() )
-                new_message.save()
+                if Chat.objects.exists():
+                    #last_chat = Chat.objects.order_by('-creation_date')[0]
+                    conv = Chat.objects.get(name=request.session['actual_conv'])
+                    new_message = Message(author=request.user,chat=conv, content=msg, publication_date=timezone.now() )
+                    new_message.save()
+                else: 
+                    messages.error(request, 'You have to create a chat room to send messages')
         return redirect('index-view')
 
 def moderation(request):
@@ -147,7 +146,7 @@ def getMessages(request):
     data = [message.to_dict() for message in messages]
    
     return JsonResponse({'chat': chat.name, 'messages': data})
-"""
+
 
 def createChat(request):
     print(request)
@@ -189,7 +188,7 @@ def saveMessage(request):
     data = [message.to_dict() for message in chat_messages]
 
     return JsonResponse({'chat': chat.name, 'messages': data})
-
+"""
 
 def deleteConversation(request):
             import json
@@ -212,13 +211,5 @@ def actualConv(request):
             conv_name = json.loads(request.body.decode())['data']
             if conv_name:
                 request.session['actual_conv'] = conv_name
-            print("function actualConv")
             return redirect('index-view')
 
-def deleteUser(request):
-            import json
-            user_name = json.loads(request.body.decode())['data']
-            if user_name:
-                user = User.objects.filter(username=user_name)
-                user.delete()
-            return redirect('../moderation')
