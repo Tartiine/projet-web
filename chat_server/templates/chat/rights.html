@@ -1,0 +1,69 @@
+{% extends "chat/base_layout.html" %}
+
+{% block title %}Modération - Le tchat du laitier{% endblock %}
+
+
+{% block header-buttons %}
+    {% if user.is_authenticated %}
+        <p id="header-gap">Bienvenue, {{ user.username }}</p>
+        <a href="{% url 'index-view' %}" title="Retour aux conversations" class="header-button">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                <!-- Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com Copyright 2022 Fonticons, Inc. -->
+                <path fill="currentColor" d="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1V472c0 22.1-17.9 40-40 40H456c-1.1
+                0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1H416 392c-22.1 0-40-17.9-40-40V448 384c0-17.7-14.3-32-32-32H256c-17.7 0-32
+                14.3-32 32v64 24c0 22.1-17.9 40-40 40H160 128.1c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2H104c-22.1
+                0-40-17.9-40-40V360c0-.9 0-1.9 .1-2.8V287.6H32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21
+                7L564.8 231.5c8 7 12 15 11 24z"/>
+            </svg>
+        </a>
+        <a href="{% url 'index-view' %}?logout=1" class="header-button">Se déconnecter</a>
+    {% else %}
+        <p id="header-gap">Vous n'êtes pas encore connecté</p>
+        <a href="{% url 'account_login' %}" class="header-button">Se connecter</a>
+        <a href="{% url 'account_signup' %}" class="header-button">S'inscrire</a>
+    {% endif %}
+{% endblock %}
+
+{% block body %}<body id="moderation">{% endblock %}
+
+{% block content %}
+<div id="rights-main-container">    
+    <div id="conversation-title">
+        <h3>Droits - {{ main_user.username }}</h3>
+    </div>
+    <form method="post">
+        <div>
+            <h4>Droits généraux</h4>
+            <div class="right-general">
+                <input type="checkbox" name="param-conv-create" id="param-conv-create">
+                <label for="param-conv-create">Créer une conversation</label>
+            </div>
+            <div class="right-general">
+                <input type="checkbox" name="param-conv-delete" id="param-conv-delete">
+                <label for="param-conv-delete">Supprimer une conversation</label>
+            </div>
+            <div class="right-general">
+                <input type="checkbox" name="param-conv-rename" id="param-conv-rename">
+                <label for="param-conv-rename">Renommer une conversation</label>
+            </div>
+        </div>
+
+        <div id="rights-per-discussion">
+            <h4>Par discussion</h4>
+            {% if conversation_list %}
+                {% for conversation in conversation_list %}
+                <div class="rights-row">
+                    <div><p>{{ conversation.name }}</p></div>
+                    <input type="checkbox" name="param-conv-create" id="param-conv-create">
+                    <label for="param-conv-create">Créer une conversation</label>
+                    <input type="checkbox" name="param-conv-delete" id="param-conv-delete">
+                    <label for="param-conv-delete">Supprimer une conversation</label>
+                    <input type="checkbox" name="param-conv-rename" id="param-conv-rename">
+                    <label for="param-conv-rename">Renommer une conversation</label>
+                </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </form>
+</div>
+{% endblock %}
