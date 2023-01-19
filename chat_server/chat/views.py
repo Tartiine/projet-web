@@ -188,7 +188,7 @@ def saveMessage(request):
     data = [message.to_dict() for message in chat_messages]
 
     return JsonResponse({'chat': chat.name, 'messages': data})
-"""
+
 
 def deleteConversation(request):
             import json
