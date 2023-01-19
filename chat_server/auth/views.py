@@ -1,12 +1,11 @@
 from django.shortcuts import render, redirect
-from django.views.generic.base import TemplateView
+from allauth.account.views import LoginView, SignupView
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.utils import timezone
-import datetime
 
 # Create your views here.
-class CustomSignupView(TemplateView):
+class CustomSignupView(SignupView):
     template_name = "auth/register.html"
     
     def post(self, request, *args, **kwargs):
@@ -18,17 +17,19 @@ class CustomSignupView(TemplateView):
             if User.objects.filter(username=userName).exists():
                 return render(request, self.template_name, {'error': 'This username is already associated to a account'})
             else:
-                user = User.objects.create_user(username=userName, password=Password, date_joined=timezone.make_aware(datetime.datetime.now()))
                 if User.objects.exists() == 0:
+                    user = User.objects.create_user(username=userName, password=Password, date_joined=timezone.now())
                     user.is_staff = True
                     user.is_superuser = True
+                else:
+                    user = User.objects.create_user(username=userName, password=Password, date_joined=timezone.now())
                 user.save()
                 return redirect('account_login')
                 return render(request, 'auth/login.html', {'error': 'Account created'})
         else:
             return render(request, self.template_name, {'error': 'Error the account was not created'})
 
-class CustomLoginView(TemplateView):
+class CustomLoginView(LoginView):
     template_name = "auth/login.html"
 
     def post(self, request, *args, **kwargs):
@@ -40,6 +41,3 @@ class CustomLoginView(TemplateView):
             return redirect('index-view')
         else:
             return render(request, self.template_name, {'error': 'Invalid login credentials'})
-
-
-

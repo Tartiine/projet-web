@@ -1,0 +1,223 @@
+Index: chat_server/chat/views.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from django.shortcuts import render, redirect\r\nfrom django.views.generic.base import TemplateView\r\nfrom django.contrib.auth import logout\r\nfrom django.http import JsonResponse\r\nfrom django.utils import timezone\r\nfrom .models import Chat, Message\r\nfrom django.contrib.auth.models import User\r\nfrom django.contrib import messages\r\n# Create your views here.\r\n\r\nclass IndexView(TemplateView):\r\n    template_name = \"chat/index.html\"\r\n    \r\n    def get(self, request, *args, **kwargs):\r\n        conversation_list = Chat.objects.order_by('-creation_date')[:]\r\n        context = {'conversation_list': conversation_list}\r\n        if request.GET.get('logout'):\r\n            logout(request)\r\n        return render(request, self.template_name, context)\r\n    \r\n    def post(self, request, *args, **kwargs):\r\n        if request.method == 'POST':\r\n            if not request.user.is_authenticated:\r\n                return redirect('account_login')\r\n            new_conv = request.POST.get('new-conv', None)\r\n            if new_conv:\r\n                if Chat.objects.filter(name=new_conv).exists():   \r\n                    messages.error(request, 'This chat already exists')\r\n                else:\r\n                    new_chat = Chat(name=new_conv,creator=request.user, creation_date=timezone.now())\r\n                    new_chat.save()\r\n        return redirect('index-view')\r\n\r\ndef moderation(request):\r\n    return render(request, 'chat/moderation.html')\r\n\r\ndef thread(request):\r\n    return render(request, 'thread.html')\r\n\r\n# for test purposes only\r\ndef init(request):\r\n    print(request)\r\n    user1 = User(username=\"user1\", rights=1)\r\n    user1.save()\r\n    user2 = User(username=\"user2\", rights=1)\r\n    user2.save()\r\n    chat = Chat(name=\"general\", creator=user1, creation_date=timezone.now())\r\n    chat.save()\r\n    m1 = Message(author=user1, chat=chat, content=\"The first of a lot of random messages\",\r\n                 publication_date=timezone.now())\r\n    m1.save()\r\n    m2 = Message(author=user1, chat=chat, content=\"The second of a lot of random messages\",\r\n                 publication_date=timezone.now())\r\n    m2.save()\r\n    m3 = Message(author=user2, chat=chat, content=\"The third of a lot of random messages\",\r\n                 publication_date=timezone.now())\r\n    m3.save()\r\n    m4 = Message(author=user1, chat=chat, content=\"The fourth of a lot of random messages\",\r\n                 publication_date=timezone.now())\r\n    m4.save()\r\n    m5 = Message(author=user2, chat=chat, content=\"The fifth of a lot of random messages\",\r\n                 publication_date=timezone.now())\r\n    m5.save()\r\n    m6 = Message(author=user2, chat=chat, content=\"The sixth of a lot of random messages\",\r\n                 publication_date=timezone.now())\r\n    m6.save()\r\n    m7 = Message(author=user1, chat=chat, content=\"The seventh of a lot of random messages\",\r\n                 publication_date=timezone.now())\r\n    m7.save()\r\n    m8 = Message(author=user1, chat=chat, content=\"The eighth of a lot of random messages\",\r\n                 publication_date=timezone.now())\r\n    m8.save()\r\n    m9 = Message(author=user1, chat=chat, content=\"The ninth of a lot of random messages\",\r\n                 publication_date=timezone.now())\r\n    m9.save()\r\n    m10 = Message(author=user2, chat=chat, content=\"The tenth of a lot of random messages\",\r\n                  publication_date=timezone.now())\r\n    m10.save()\r\n\r\n\r\ndef getChats(request):\r\n    chats = Chat.objects.all()\r\n    data = [chat.to_dict() for chat in chats]\r\n    return JsonResponse({'chats': data})\r\n\r\n\r\ndef getMessages(request):\r\n    chat = Chat.objects.get(name=request.GET['chatName'])\r\n    messages = chat.message_set.only('author', 'chat', 'content', 'publication_date').all()\r\n    data = [message.to_dict() for message in messages]\r\n   \r\n    return JsonResponse({'chat': chat.name, 'messages': data})\r\n\r\n\r\ndef createChat(request):\r\n    print(request)\r\n    return\r\n\r\n\r\ndef saveMessage(request):\r\n    print(request)\r\n    return\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/chat_server/chat/views.py b/chat_server/chat/views.py
+--- a/chat_server/chat/views.py	(revision d7261681b2dc892fa54a0ee81cb474cd9a642eff)
++++ b/chat_server/chat/views.py	(date 1673713813226)
+@@ -40,9 +40,9 @@
+ # for test purposes only
+ def init(request):
+     print(request)
+-    user1 = User(username="user1", rights=1)
++    user1 = User.objects.create_user(username="user1", password="UsEr1")
+     user1.save()
+-    user2 = User(username="user2", rights=1)
++    user2 = User.objects.create_user(username="user2", password="UsEr2")
+     user2.save()
+     chat = Chat(name="general", creator=user1, creation_date=timezone.now())
+     chat.save()
+@@ -87,6 +87,7 @@
+ def getMessages(request):
+     chat = Chat.objects.get(name=request.GET['chatName'])
+     messages = chat.message_set.only('author', 'chat', 'content', 'publication_date').all()
++    print(messages)
+     data = [message.to_dict() for message in messages]
+    
+     return JsonResponse({'chat': chat.name, 'messages': data})
+Index: chat_server/chat/models.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from django.db import models\r\nfrom django.contrib.auth.models import User\r\n# Create your models here.\r\n\r\n\r\nclass Chat(models.Model):\r\n    name = models.CharField(max_length=40)\r\n    creator = models.ForeignKey(User, on_delete=models.PROTECT)\r\n    creation_date = models.DateTimeField()\r\n\r\n    def to_dict(self):\r\n        dicchat = {}\r\n        dicchat['name'] = self.name\r\n        dicchat['author'] = self.creator.to_dict()\r\n        dicchat['creation_date'] = self.creation_date\r\n        return dicchat\r\n\r\nclass Message(models.Model):\r\n    author = models.ForeignKey(User, on_delete=models.PROTECT)\r\n    chat = models.ForeignKey(Chat, on_delete=models.CASCADE)\r\n    content = models.CharField(max_length=400)\r\n    publication_date = models.DateTimeField()\r\n\r\n    def to_dict(self):\r\n        dicmessage = {}\r\n        dicmessage['author'] = self.author.to_dict()\r\n        dicmessage['chat'] = self.chat.to_dict()\r\n        dicmessage['content'] = self.content\r\n        dicmessage['publication_date'] = self.publication_date\r\n        return dicmessage\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/chat_server/chat/models.py b/chat_server/chat/models.py
+--- a/chat_server/chat/models.py	(revision d7261681b2dc892fa54a0ee81cb474cd9a642eff)
++++ b/chat_server/chat/models.py	(date 1673711823952)
+@@ -2,6 +2,17 @@
+ from django.contrib.auth.models import User
+ # Create your models here.
+ 
++def permission_to_dict(permission):
++    dicperm = {}
++    dicperm['name'] = permission.name
++    dicperm['content_type'] = permission.content_type
++    dicperm['codename'] = permission.codename
++    return dicperm
++def user_to_dict(user):
++    dicuser = {}
++    dicuser['username'] = user.username
++    dicuser['user_permissions'] = [permission_to_dict(permission) for permission in user.user_permissions]
++    return dicuser
+ 
+ class Chat(models.Model):
+     name = models.CharField(max_length=40)
+@@ -11,7 +22,7 @@
+     def to_dict(self):
+         dicchat = {}
+         dicchat['name'] = self.name
+-        dicchat['author'] = self.creator.to_dict()
++        dicchat['creator'] = user_to_dict(self.creator)
+         dicchat['creation_date'] = self.creation_date
+         return dicchat
+ 
+@@ -23,7 +34,7 @@
+ 
+     def to_dict(self):
+         dicmessage = {}
+-        dicmessage['author'] = self.author.to_dict()
++        dicmessage['author'] = user_to_dict(self.author)
+         dicmessage['chat'] = self.chat.to_dict()
+         dicmessage['content'] = self.content
+         dicmessage['publication_date'] = self.publication_date
+Index: resources/scripts/running-script.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>username = $('#username').html()\r\nif(username != \"\"){\r\n    console.log(username)\r\n}else{\r\n    console.log(\"no username\")\r\n}\r\n\r\nfunction generateChat(messages){\r\n    str = \"\"\r\n    for(message of messages){\r\n        str += \"<li>\\n\"\r\n        if(message.author.username == username){\r\n            str += \"<div class=\\\"message-me\\\">\\n\"\r\n        }else{\r\n            str += \"<div class=\\\"message-other\\\">\\n\"\r\n        }\r\n        str += \"<p>\" + message.author.username + \"</p>\\n\"\r\n        str += \"<p>\" + message.content + \"</p>\\n\"\r\n        str += \"<p>\" + message.publication_date + \"</p>\\n\"\r\n        str += \"</div>\\n\"\r\n        str += \"</li>\\n\"\r\n    }\r\n    return str\r\n}\r\n\r\n\r\n\r\n$.ajax('http://localhost:8000/chat/getMessages', {\r\n    method:'GET',\r\n    data: {\r\n        \"chatName\":'general',\r\n    },\r\n}).done( response => {\r\n    console.log(\"response gotten\")\r\n    console.log(response.messages)\r\n    $(\"#conversation-thread\").html(generateChat(response.messages))\r\n})
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/resources/scripts/running-script.js b/resources/scripts/running-script.js
+--- a/resources/scripts/running-script.js	(revision d7261681b2dc892fa54a0ee81cb474cd9a642eff)
++++ b/resources/scripts/running-script.js	(date 1673706898807)
+@@ -23,15 +23,18 @@
+     return str
+ }
+ 
+-
+-
+-$.ajax('http://localhost:8000/chat/getMessages', {
+-    method:'GET',
+-    data: {
+-        "chatName":'general',
+-    },
+-}).done( response => {
+-    console.log("response gotten")
+-    console.log(response.messages)
+-    $("#conversation-thread").html(generateChat(response.messages))
+-})
+\ No newline at end of file
++function loadChat(chatname){
++    $.ajax('http://localhost:8000/chat/getMessages', {
++        method:'GET',
++        data: {
++            "chatName":chatname,
++        },
++    }).done( response => {
++        $("#conversation-thread").html(generateChat(response.messages))
++    })
++}
++
++loadChat("general")
++
++
++
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"b6616f8f-3f71-471b-935a-51ebfa0554aa\" name=\"Changes\" comment=\"getChats and getMessages done\">\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/resources/scripts/jquery-3.6.3.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/chat_server/chat/urls.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/chat_server/chat/urls.py\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/chat_server/chat/views.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/chat_server/chat/views.py\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/chat_server/db.sqlite3\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/chat_server/db.sqlite3\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2KFHd4lW2MyUJsvqzAsRrMajxCJ\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;C:/ENSISA/Projets/Projet_web&quot;,\r\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,\r\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\r\n  }\r\n}</component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"b6616f8f-3f71-471b-935a-51ebfa0554aa\" name=\"Changes\" comment=\"\" />\r\n      <created>1673563496034</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1673563496034</updated>\r\n      <workItem from=\"1673563500084\" duration=\"3092000\" />\r\n      <workItem from=\"1673567099349\" duration=\"366000\" />\r\n      <workItem from=\"1673567489832\" duration=\"1518000\" />\r\n      <workItem from=\"1673605172558\" duration=\"1593000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"created functions and paths for requests\">\r\n      <created>1673567372946</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1673567372946</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"created js file for future use\">\r\n      <created>1673567393599</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1673567393599</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"added to_dict\">\r\n      <created>1673567516167</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1673567516167</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"added name field\">\r\n      <created>1673567574837</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1673567574837</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"added cretor field\">\r\n      <created>1673567811003</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1673567811003</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"added to_dict to User and Chat\">\r\n      <created>1673568112949</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1673568112949</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"getChats and getMessages done\">\r\n      <created>1673606145929</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1673606145929</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"8\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"created functions and paths for requests\" />\r\n    <MESSAGE value=\"created js file for future use\" />\r\n    <MESSAGE value=\"added to_dict\" />\r\n    <MESSAGE value=\"added name field\" />\r\n    <MESSAGE value=\"added cretor field\" />\r\n    <MESSAGE value=\"added to_dict to User and Chat\" />\r\n    <MESSAGE value=\"getChats and getMessages done\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"getChats and getMessages done\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision d7261681b2dc892fa54a0ee81cb474cd9a642eff)
++++ b/.idea/workspace.xml	(date 1673712981711)
+@@ -4,12 +4,12 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="b6616f8f-3f71-471b-935a-51ebfa0554aa" name="Changes" comment="getChats and getMessages done">
+-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/resources/scripts/jquery-3.6.3.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/chat_server/chat/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/chat_server/chat/urls.py" afterDir="false" />
++    <list default="true" id="b6616f8f-3f71-471b-935a-51ebfa0554aa" name="Changes" comment="added scripts to page">
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/chat_server/chat/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/chat_server/chat/models.py" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/chat_server/chat/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/chat_server/chat/views.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/chat_server/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/chat_server/db.sqlite3" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/chat_server/db.sqlite3" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/resources/scripts/running-script.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/scripts/running-script.js" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -52,7 +52,9 @@
+       <workItem from="1673563500084" duration="3092000" />
+       <workItem from="1673567099349" duration="366000" />
+       <workItem from="1673567489832" duration="1518000" />
+-      <workItem from="1673605172558" duration="1593000" />
++      <workItem from="1673605172558" duration="6715000" />
++      <workItem from="1673619595006" duration="8555000" />
++      <workItem from="1673705839772" duration="4143000" />
+     </task>
+     <task id="LOCAL-00001" summary="created functions and paths for requests">
+       <created>1673567372946</created>
+@@ -103,7 +105,49 @@
+       <option name="project" value="LOCAL" />
+       <updated>1673606145929</updated>
+     </task>
+-    <option name="localTasksCounter" value="8" />
++    <task id="LOCAL-00008" summary="added init for tests and JQuery">
++      <created>1673606822023</created>
++      <option name="number" value="00008" />
++      <option name="presentableId" value="LOCAL-00008" />
++      <option name="project" value="LOCAL" />
++      <updated>1673606822023</updated>
++    </task>
++    <task id="LOCAL-00009" summary="added basic js functions">
++      <created>1673622635261</created>
++      <option name="number" value="00009" />
++      <option name="presentableId" value="LOCAL-00009" />
++      <option name="project" value="LOCAL" />
++      <updated>1673622635261</updated>
++    </task>
++    <task id="LOCAL-00010" summary="changed getMessage to repond to request data">
++      <created>1673626651172</created>
++      <option name="number" value="00010" />
++      <option name="presentableId" value="LOCAL-00010" />
++      <option name="project" value="LOCAL" />
++      <updated>1673626651172</updated>
++    </task>
++    <task id="LOCAL-00011" summary="changed js to accomodate for future changes">
++      <created>1673626704013</created>
++      <option name="number" value="00011" />
++      <option name="presentableId" value="LOCAL-00011" />
++      <option name="project" value="LOCAL" />
++      <updated>1673626704013</updated>
++    </task>
++    <task id="LOCAL-00012" summary="use to dict to further detail send jsons">
++      <created>1673626731027</created>
++      <option name="number" value="00012" />
++      <option name="presentableId" value="LOCAL-00012" />
++      <option name="project" value="LOCAL" />
++      <updated>1673626731027</updated>
++    </task>
++    <task id="LOCAL-00013" summary="added scripts to page">
++      <created>1673626747177</created>
++      <option name="number" value="00013" />
++      <option name="presentableId" value="LOCAL-00013" />
++      <option name="project" value="LOCAL" />
++      <updated>1673626747177</updated>
++    </task>
++    <option name="localTasksCounter" value="14" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -128,6 +172,12 @@
+     <MESSAGE value="added cretor field" />
+     <MESSAGE value="added to_dict to User and Chat" />
+     <MESSAGE value="getChats and getMessages done" />
+-    <option name="LAST_COMMIT_MESSAGE" value="getChats and getMessages done" />
++    <MESSAGE value="added init for tests and JQuery" />
++    <MESSAGE value="added basic js functions" />
++    <MESSAGE value="changed getMessage to repond to request data" />
++    <MESSAGE value="changed js to accomodate for future changes" />
++    <MESSAGE value="use to dict to further detail send jsons" />
++    <MESSAGE value="added scripts to page" />
++    <option name="LAST_COMMIT_MESSAGE" value="added scripts to page" />
+   </component>
+ </project>
+\ No newline at end of file

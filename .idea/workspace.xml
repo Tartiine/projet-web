@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6616f8f-3f71-471b-935a-51ebfa0554aa" name="Changes" comment="getChats and getMessages done">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/scripts/jquery-3.6.3.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat_server/chat/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/chat_server/chat/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat_server/chat/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/chat_server/chat/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat_server/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/chat_server/db.sqlite3" afterDir="false" />
-    </list>
+    <list default="true" id="b6616f8f-3f71-471b-935a-51ebfa0554aa" name="Changes" comment="added message sending and saving, as well as loading tweaks" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -32,12 +26,13 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/ENSISA/Projets/Projet_web&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/ENSISA/Projets/Projet_web/chat_server/chat/views.py&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;two.files.diff.last.used.file&quot;: &quot;C:/ENSISA/Projets/Projet_web/chat_server/chat/views.py&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -52,7 +47,11 @@
       <workItem from="1673563500084" duration="3092000" />
       <workItem from="1673567099349" duration="366000" />
       <workItem from="1673567489832" duration="1518000" />
-      <workItem from="1673605172558" duration="1593000" />
+      <workItem from="1673605172558" duration="6715000" />
+      <workItem from="1673619595006" duration="8555000" />
+      <workItem from="1673705839772" duration="10076000" />
+      <workItem from="1674085619094" duration="9015000" />
+      <workItem from="1674114834446" duration="404000" />
     </task>
     <task id="LOCAL-00001" summary="created functions and paths for requests">
       <created>1673567372946</created>
@@ -103,7 +102,77 @@
       <option name="project" value="LOCAL" />
       <updated>1673606145929</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="added init for tests and JQuery">
+      <created>1673606822023</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1673606822023</updated>
+    </task>
+    <task id="LOCAL-00009" summary="added basic js functions">
+      <created>1673622635261</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1673622635261</updated>
+    </task>
+    <task id="LOCAL-00010" summary="changed getMessage to repond to request data">
+      <created>1673626651172</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1673626651172</updated>
+    </task>
+    <task id="LOCAL-00011" summary="changed js to accomodate for future changes">
+      <created>1673626704013</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1673626704013</updated>
+    </task>
+    <task id="LOCAL-00012" summary="use to dict to further detail send jsons">
+      <created>1673626731027</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1673626731027</updated>
+    </task>
+    <task id="LOCAL-00013" summary="added scripts to page">
+      <created>1673626747177</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1673626747177</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Works again with updated User model">
+      <created>1673714444181</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1673714444181</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Scrolls to last message">
+      <created>1673718549610</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1673718549610</updated>
+    </task>
+    <task id="LOCAL-00016" summary="removed &lt;li&gt;s in order to remove some small points in the final render">
+      <created>1673719282117</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1673719282117</updated>
+    </task>
+    <task id="LOCAL-00017" summary="added message sending and saving, as well as loading tweaks">
+      <created>1674096398244</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1674096398244</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -128,6 +197,16 @@
     <MESSAGE value="added cretor field" />
     <MESSAGE value="added to_dict to User and Chat" />
     <MESSAGE value="getChats and getMessages done" />
-    <option name="LAST_COMMIT_MESSAGE" value="getChats and getMessages done" />
+    <MESSAGE value="added init for tests and JQuery" />
+    <MESSAGE value="added basic js functions" />
+    <MESSAGE value="changed getMessage to repond to request data" />
+    <MESSAGE value="changed js to accomodate for future changes" />
+    <MESSAGE value="use to dict to further detail send jsons" />
+    <MESSAGE value="added scripts to page" />
+    <MESSAGE value="Works again with updated User model" />
+    <MESSAGE value="Scrolls to last message" />
+    <MESSAGE value="removed &lt;li&gt;s in order to remove some small points in the final render" />
+    <MESSAGE value="added message sending and saving, as well as loading tweaks" />
+    <option name="LAST_COMMIT_MESSAGE" value="added message sending and saving, as well as loading tweaks" />
   </component>
 </project>
