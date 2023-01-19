@@ -87,7 +87,7 @@
             <input type="text" name="new-conv" id="new-conv" autocomplete="off" placeholder="Nouvelle conversation">
         </form>       
     </div>
-    
+
     <div id="conversation-title">
         <h3>{{ actual_conv }}</h3>
     </div>
@@ -98,7 +98,7 @@
                     {% if user == message.author %}
                         <div class="message-me">
                     {% else %}
-                        <div class="message-other">
+                        <div class="message-other"> 
                     {% endif %}
                 {% else %}
                     <div class="message-other">
@@ -111,17 +111,21 @@
             {% endfor %}
         {% endif %}
     </div>
-    
     <script>
         function submitForm1() {
             var form = document.getElementById("form_msg");
-            if(form) form.submit();
+            if(form) {
+                form.submit();
+                setTimeout(function(){
+                    document.getElementById("conversation-thread").scrollTop = document.getElementById("conversation-thread").scrollHeight;
+                }, 100);
+            }
         }
-    </script> 
+    </script>
 
     <div id="writing-area">
         {% if user.is_authenticated %}
-            <form method="post" id="form_msg" > 
+            <form method="post" id="form_msg" >
                 {% csrf_token %}
                 <input type="text" name="new-message" id="new-message" autocomplete="off" placeholder="Entrez un message">
                 <div id="emoji-button">
