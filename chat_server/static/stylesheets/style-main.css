@@ -9,6 +9,7 @@
     --color-text-light: #dfdfdf;
     --color-text-semilight: #b5b5b5;
     --color-text-dark: #202020;
+    --color-text-error: #aa3535;
 
     --header-size: 60px;
 
@@ -49,7 +50,8 @@ header p {
     line-height: var(--header-size);
 }
 header a { text-decoration: none; }
-header a:first-child { line-height: var(--header-size); margin-right: auto; }
+header a:first-child { line-height: var(--header-size); }
+#header-gap { margin-left: auto; }
 header h1 { color: var(--color-text-light); font-family: "EspressoDolce", Arial, Helvetica, sans-serif; }
 .header-button {
     margin: calc(var(--header-size) / 5) 0;
@@ -330,7 +332,7 @@ h3 {
     height: calc(var(--text-size-main) + 10px);
     margin: 0 auto;
 }
-.moderation-row input, .moderation-row select {
+.moderation-row input {
     border: none;
     border-radius: 3px;
     padding: 4px 5px 1px 5px;
@@ -339,6 +341,61 @@ h3 {
     font-size: calc(var(--text-size-main) - 3px);
     line-height: var(--text-size-main);
     width: 100%;
+}
+
+.rights {
+    border: none;
+    border-radius: 3px;
+    padding: 5px;
+    background-color: var(--color-cstm-green);
+    color: var(--color-text-dark);
+    font-size: calc(var(--text-size-main) - 3px);
+    vertical-align: top;
+    line-height: var(--text-size-main);
+    cursor: pointer;
+    width: 100%;
+}
+
+.error {
+    color: var(--color-text-error);
+    font-size: 13px;
+    font-weight: bold;
+    margin-left: 100px;
+}
+
+#rights-main-container {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 2 * var(--main-padding));
+    height: calc(100% - 2 * var(--main-padding));
+    font-size: var(--text-size-main);
+    background-color: var(--color-cstm-blue);
+    color: var(--color-text-light);
+    border-radius:
+        calc(var(--main-padding) * 0.425)
+        calc(var(--main-padding) * 0.85)
+        calc(var(--main-padding) * 0.85)
+        calc(var(--main-padding) * 0.425);
+    transition: 0.65s var(--interpolation-open-menu);
+}
+#rights-main-container h4 {
+    font-size: 22px;
+    line-height: 22px;
+    font-weight: bold;
+    color: var(--color-text-light);
+    font-family: "EspressoDolce", Arial, Helvetica, sans-serif;
+    text-overflow: ellipsis;
+}
+#rights-main-container div {
+    margin: var(--main-padding);
+}
+#rights-main-container form div {
+    display: flex;
+    flex-direction: column;
+}
+#right-general {
+    margin: 0 auto;
+    display: inline-block;
 }
 
 .wave-background div {
