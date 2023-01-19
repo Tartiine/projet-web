@@ -19,12 +19,11 @@ class CustomSignupView(TemplateView):
                 return render(request, self.template_name, {'error': 'This username is already associated to a account'})
             else:
                 user = User.objects.create_user(username=userName, password=Password, date_joined=timezone.make_aware(datetime.datetime.now()))
-                if User.objects.exists() == 0:
+                if (User.objects.count() == 1):
                     user.is_staff = True
                     user.is_superuser = True
                 user.save()
-                return redirect('account_login')
-                return render(request, 'auth/login.html', {'error': 'Account created'})
+            return render(request, 'auth/login.html', {'error': 'Account created'})
         else:
             return render(request, self.template_name, {'error': 'Error the account was not created'})
 

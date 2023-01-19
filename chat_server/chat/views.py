@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.base import TemplateView
 from django.contrib.auth import logout
 from django.http import JsonResponse
@@ -17,23 +17,22 @@ class IndexView(TemplateView):
 
 
     def get(self, request, *args, **kwargs):
-        if 'actual_conv' in request.session:
-            conv_name = request.session['actual_conv']
-            try:
-                conv = Chat.objects.get(name=conv_name)
-            except Chat.DoesNotExist:
-                message_list = Message.objects.order_by('publication_date')[:]
-        else:
-            request.session['actual_conv'] = Chat.objects.order_by('-creation_date')[0].name
+    
+        if Chat.objects.exists() != 0:
+            if 'actual_conv' not in request.session:
+                request.session['actual_conv'] = Chat.objects.order_by('-creation_date')[0].name
             conv_name = request.session['actual_conv']
             conv = Chat.objects.get(name=conv_name)
-        message_list = Message.objects.filter(chat=conv).order_by('publication_date')[:] 
-        conversation_list = Chat.objects.order_by('-creation_date')[:] 
-        context = {'conversation_list': conversation_list,'message_list': message_list, 'actual_conv':conv_name}
+            message_list = Message.objects.filter(chat=conv).order_by('publication_date')[:] 
+            conversation_list = Chat.objects.order_by('-creation_date')[:] 
+            context = {'conversation_list': conversation_list,'message_list': message_list, 'actual_conv':conv_name}
+        else:
+            context = {}
         if request.GET.get('logout'):
             logout(request)
         return render(request, self.template_name, context)
-    
+        
+        
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
             if not request.user.is_authenticated:
@@ -63,12 +62,12 @@ def moderation(request):
     context = {'conversation_list': conversation_list, 'user_list': user_list}
     return render(request, template_name, context)
 
-def rights(request):
+def rights_view(request, username):
     template_name = "chat/rights.html"
-    main_user = User.objects.filter(username="=== INSERER LE NOM ICI ===").first()
+    main_user = get_object_or_404(User, username=username)
     conversation_list = Chat.objects.order_by('-creation_date')[:]
     context = {'main_user': main_user, 'conversation_list':conversation_list}
-    return render(request, template_name, context)
+    return render(request, template_name, {'main_user': main_user})
 
 
 def changePassword(request):
@@ -90,48 +89,8 @@ def changePassword(request):
 
 def thread(request):
     return render(request, 'thread.html')
+
 """
-# for test purposes only
-def init(request):
-    print(request)
-    user1 = User.objects.create_user(username="user1", password="UsEr1")
-    user1.save()
-    user2 = User.objects.create_user(username="user2", password="UsEr2")
-    user2.save()
-    chat = Chat(name="general", creator=user1, creation_date=timezone.make_aware(datetime.datetime.now()))
-    chat.save()
-    m1 = Message(author=user1, chat=chat, content="The first of a lot of random messages",
-                 publication_date=timezone.make_aware(datetime.datetime.now()))
-    m1.save()
-    m2 = Message(author=user1, chat=chat, content="The second of a lot of random messages",
-                 publication_date=timezone.make_aware(datetime.datetime.now()))
-    m2.save()
-    m3 = Message(author=user2, chat=chat, content="The third of a lot of random messages",
-                 publication_date=timezone.make_aware(datetime.datetime.now()))
-    m3.save()
-    m4 = Message(author=user1, chat=chat, content="The fourth of a lot of random messages",
-                 publication_date=timezone.make_aware(datetime.datetime.now()))
-    m4.save()
-    m5 = Message(author=user2, chat=chat, content="The fifth of a lot of random messages",
-                 publication_date=timezone.make_aware(datetime.datetime.now()))
-    m5.save()
-    m6 = Message(author=user2, chat=chat, content="The sixth of a lot of random messages",
-                 publication_date=timezone.make_aware(datetime.datetime.now()))
-    m6.save()
-    m7 = Message(author=user1, chat=chat, content="The seventh of a lot of random messages",
-                 publication_date=timezone.make_aware(datetime.datetime.now()))
-    m7.save()
-    m8 = Message(author=user1, chat=chat, content="The eighth of a lot of random messages",
-                 publication_date=timezone.make_aware(datetime.datetime.now()))
-    m8.save()
-    m9 = Message(author=user1, chat=chat, content="The ninth of a lot of random messages",
-                 publication_date=timezone.make_aware(datetime.datetime.now()))
-    m9.save()
-    m10 = Message(author=user2, chat=chat, content="The tenth of a lot of random messages",
-                  publication_date=timezone.make_aware(datetime.datetime.now()))
-    m10.save()
-
-
 def getChats(request):
     chats = Chat.objects.all()
     data = [chat.to_dict() for chat in chats]
@@ -187,7 +146,6 @@ def saveMessage(request):
     data = [message.to_dict() for message in chat_messages]
 
     return JsonResponse({'chat': chat.name, 'messages': data})
-
 """
 
 def deleteConversation(request):
