@@ -72,4 +72,7 @@ $($("#writing-area").children("form")).on('submit', (event) => {
     $("#new-message").val("")
 })
 
+setInterval(() => {loadChat($("#conversation-title h3").html())}, 2500)
+
+
 
