@@ -6,6 +6,7 @@ from django.utils import timezone
 from .models import Chat, Message
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
@@ -100,9 +101,41 @@ def getMessages(request):
 
 def createChat(request):
     print(request)
-    return
+    if request.method == 'POST':
+        if not request.user.is_authenticated:
+            return redirect('account_login')
+        new_conv = request.POST.get('chatName', None)
+        if new_conv:
+            if Chat.objects.filter(name=new_conv).exists():
+                messages.error(request, 'This chat already exists')
+            else:
+                new_chat = Chat(name=new_conv, creator=request.user, creation_date=timezone.now())
+                new_chat.save()
 
+    chat = Chat.objects.get(name=new_conv)
+    chat_messages = chat.message_set.only('author', 'chat', 'content', 'publication_date').all()
+    print(chat_messages)
+    data = [message.to_dict() for message in chat_messages]
 
+    return JsonResponse({'chat': chat.name, 'messages': data})
+
+@csrf_exempt
 def saveMessage(request):
     print(request)
-    return
+    if request.method == 'POST':
+        if not request.user.is_authenticated:
+            return redirect('account_login')
+        new_content = request.POST.get('content', None)
+        if new_content:
+            if new_content == "":
+                messages.error(request, 'This message is empty !')
+            else:
+                new_message = Message(content=new_content, chat=Chat.objects.get(name=request.POST.get('chat',None)), author=request.user, publication_date=timezone.now())
+                new_message.save()
+
+    chat = Chat.objects.get(name=request.POST.get('chat',None))
+    chat_messages = chat.message_set.only('author', 'chat', 'content', 'publication_date').all()
+    print(chat_messages)
+    data = [message.to_dict() for message in chat_messages]
+
+    return JsonResponse({'chat': chat.name, 'messages': data})
