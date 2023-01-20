@@ -13,4 +13,6 @@ Website template based on django and javascript frameworks implementing an user 
 # Prerequisite
 
 # Quick start
-
+```
+python manage.py runserver
+```
