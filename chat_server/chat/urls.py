@@ -29,6 +29,7 @@ urlpatterns = [
     path('actualConv/', views.actualConv, name='actual-conversation'),
     path('changeRights/', views.changeRights, name='change-rights'),
     path('rights/<str:username>/', views.rights_view, name='rights-view'),
+    path('error404', views.error404, name='error404'),
 ]
 
 

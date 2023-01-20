@@ -108,7 +108,7 @@ header h1 { color: var(--color-text-light); font-family: "EspressoDolce", Arial,
     -webkit-transition: 0.65s var(--interpolation-open-menu);
 }
 
-#main-container, #main-container-no-sidebar {
+#main-container, #main-container-no-sidebar, #main-container-404 {
     width: calc(100% - 2 * var(--main-padding));
     height: calc(100% - 2 * var(--main-padding));
     font-size: var(--text-size-main);
@@ -120,7 +120,7 @@ header h1 { color: var(--color-text-light); font-family: "EspressoDolce", Arial,
         calc(var(--main-padding) * 0.85)
         calc(var(--main-padding) * 0.425);
 }
-
+#main-container-404 { display: flex; justify-content: center; align-items: center;}
 #moderation {display: flex; flex-direction: column;}
 #main-container-no-sidebar {
     height: calc(100% - 3 * var(--main-padding) - 38px - 36px);
@@ -528,6 +528,11 @@ h3 {
     white-space: nowrap;
     align-items: center;
     column-gap: 5px;
+}
+
+video {
+    width: min(calc(100vw - 4 * var(--main-padding)),
+    calc((100vh - var(--header-size) - (4 * var(--main-padding))) * 16/9.2));
 }
 
 .wave-background div {
