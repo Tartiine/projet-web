@@ -3,7 +3,7 @@ let opened = false;
 function showHideDiscussions() {
     opened = !opened;
     if (opened) {
-        $("#main-container").css("grid-template-columns", "max(300px, 30vw) auto");
+        $("#main-container").css("grid-template-columns", "max(300px, 30vw) calc(100vw - max(300px, 30vw) - 3*var(--main-padding))");
         $("#show-button-graphics").css("d", "path('M5,40 L40,20 M5,40 L75,40 M5,40 L40,60')");
         $("#add-conv-button-graphics").css("d", "path('M10,40 L70,40 M40,10 L40,70')");
         $("#new-conv").css("bottom", "0");
@@ -11,7 +11,7 @@ function showHideDiscussions() {
         $("#conversation-list").css("padding", "var(--main-padding) var(--main-padding) 0 var(--main-padding)");
     }
     else {
-        $("#main-container").css("grid-template-columns", "50px auto");
+        $("#main-container").css("grid-template-columns", "50px calc(100vw - 50px - 3*var(--main-padding))");
         $("#show-button-graphics").css("d", "path('M5,10 L75,10 M5,40 L75,40 M5,70 L75,70')");
         $("#add-conv-button-graphics").css("d", "path('M40,40 L40,40 M40,40 L40,40')");
         $("#new-conv").css("bottom", "-40px");

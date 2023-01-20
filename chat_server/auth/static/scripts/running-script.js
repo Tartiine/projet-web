@@ -1,5 +1,4 @@
-/*
-username = $('#username').html()
+/*username = $('#username').html()
 if(username != ""){
     console.log(username)
 }else{
@@ -65,7 +64,6 @@ $("div.conversation").each((index,element) => {
     div.on('click',() => loadChat(child.html()))
 })
 
-
 //adding listeners to send messages
 $($("#writing-area").children("form")).on('submit', (event) => {
     console.log("fooled");
@@ -76,5 +74,3 @@ $($("#writing-area").children("form")).on('submit', (event) => {
 
 setInterval(() => {loadChat($("#conversation-title h3").html())}, 2500)
 */
-
-

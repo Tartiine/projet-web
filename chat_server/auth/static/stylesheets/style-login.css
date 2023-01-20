@@ -51,6 +51,10 @@ header a:first-child { line-height: var(--header-size); margin-right: auto;}
     color: var(--color-text-dark);
     transform: scale(1);
     transition: 0.15s var(--interpolation-hover);
+    -moz-transition: 0.15s var(--interpolation-hover);
+    -ms-transition: 0.15s var(--interpolation-hover);
+    -o-transition: 0.15s var(--interpolation-hover);
+    -webkit-transition: 0.15s var(--interpolation-hover);
 }
 .header-button:hover {
     background-color: var(--color-cstm-semi-dark-green);
@@ -117,6 +121,10 @@ header a:first-child { line-height: var(--header-size); margin-right: auto;}
     cursor: pointer;
     transform: scale(1);
     transition: 0.3s var(--interpolation-hover);
+    -moz-transition: 0.3s var(--interpolation-hover);
+    -ms-transition: 0.3s var(--interpolation-hover);
+    -o-transition: 0.3s var(--interpolation-hover);
+    -webkit-transition: 0.3s var(--interpolation-hover);
 }
 #login-main-bottom input:hover {
     background-color: var(--color-cstm-semi-dark-green);
@@ -130,6 +138,10 @@ header a:first-child { line-height: var(--header-size); margin-right: auto;}
     line-height: 42px;
     text-decoration: none;
     transition: 0.15s var(--interpolation-hover);
+    -moz-transition: 0.15s var(--interpolation-hover);
+    -ms-transition: 0.15s var(--interpolation-hover);
+    -o-transition: 0.15s var(--interpolation-hover);
+    -webkit-transition: 0.15s var(--interpolation-hover);
 }
 #login-main-bottom a:hover { color: var(--color-text-semilight); }
 
