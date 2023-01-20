@@ -134,6 +134,7 @@ header h1 { color: var(--color-text-light); font-family: "EspressoDolce", Arial,
     height: calc(100% - 50px);
     width: calc(max(300px, 30vw) - 2 * var(--main-padding));
     overflow-y: scroll;
+    overflow-x: hidden;
     padding: var(--main-padding) var(--main-padding) 0 55px;
     list-style: none;
     transition: 0.65s var(--interpolation-open-menu);
@@ -214,6 +215,7 @@ h3 {
     grid-area: conversation-thread;
     margin: 0 var(--main-padding) var(--main-padding) 0;
     overflow-y: scroll;
+    overflow-x: hidden;
     scrollbar-color: var(--color-cstm-blue-light) transparent;
     scrollbar-width: thin;
 }
@@ -299,6 +301,7 @@ h3 {
     padding: var(--main-padding);
     height: calc(100% - 2 * var(--main-padding));
     overflow-y: scroll;
+    overflow-x: hidden;
     scrollbar-color: var(--color-cstm-blue-light) transparent;
     scrollbar-width: thin;
 }
@@ -442,6 +445,7 @@ h3 {
     flex-direction: column;
     row-gap: var(--main-gap);
     overflow-y: scroll;
+    overflow-x: hidden;
     scrollbar-color: transparent transparent;
     scrollbar-width: none;
 }
@@ -459,11 +463,14 @@ h3 {
     flex-direction: column;
     row-gap: var(--main-gap);
     overflow-y: scroll;
+    overflow-x: hidden;
     scrollbar-color: var(--color-cstm-blue-light) transparent;
     scrollbar-width: thin;
 }
 .rights-row {
     display: flex;
+    overflow: hidden;
+    white-space: nowrap;
     align-items: center;
     padding: calc(var(--main-gap) - 5px) var(--main-gap);
     border-radius: calc(var(--main-gap) / 2);
