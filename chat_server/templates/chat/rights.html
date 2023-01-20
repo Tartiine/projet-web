@@ -28,9 +28,26 @@
     <div id="rights-title">
         <h3>Droits - {{ main_user.username }}</h3>
     </div>
+                <script>
+                    function changeRights(data) {
+                        var csrf_token = "{{ csrf_token }}";
+                        fetch('/changeRights/', {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRFToken': csrf_token,
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({data})
+                        }).then(response => {
+                        if (response.status === 200) {
+                            window.location.href = '/rights';
+                        }
+                    });
+                    }
+                </script>               
     <form method="post" id="rights-form-admin" class="rights-row-simple">
         <label for="param-conv-create"><h4>Administrateur</h4></label>
-        <input type="checkbox" name="param-admin" id="param-admin">  
+        <input type="checkbox" name="param-admin" id="param-admin" onClick="changeRights('{{ main_user.username }}')">  
     </form>
     <form method="post" id="rights-form-general">
         <h4>Droits généraux</h4>

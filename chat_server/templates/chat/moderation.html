@@ -106,8 +106,6 @@
                         <div>
                             {% if user.username == usr.username or user.is_staff %}
                                 <a href="{% url 'rights-view' usr.username %}"><button class="rights" >Changer les droits</button></a>
-                            {% else %} 
-                                <p>{{ user.is_staff }}</p>
                             {% endif %}
                         </div>
                         <div><p>{{ usr.date_joined }}</p></div>

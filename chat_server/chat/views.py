@@ -18,7 +18,7 @@ class IndexView(TemplateView):
 
     def get(self, request, *args, **kwargs):
     
-        if Chat.objects.exists() != 0:
+        if Chat.objects.exists():
             if 'actual_conv' not in request.session:
                 request.session['actual_conv'] = Chat.objects.order_by('-creation_date')[0].name
             conv_name = request.session['actual_conv']
@@ -67,7 +67,7 @@ def rights_view(request, username):
     main_user = get_object_or_404(User, username=username)
     conversation_list = Chat.objects.order_by('-creation_date')[:]
     context = {'main_user': main_user, 'conversation_list':conversation_list}
-    return render(request, template_name, {'main_user': main_user})
+    return render(request, template_name, context)
 
 
 def changePassword(request):
@@ -171,3 +171,10 @@ def actualConv(request):
                 request.session['actual_conv'] = conv_name
             return redirect('index-view')
 
+def changeRights(request):
+            import json
+            main_user = json.loads(request.body.decode())['data']
+            if main_user:
+                user = User.objects.filter(username=main_user)
+                user.is_staff = True
+            return redirect('../rights')

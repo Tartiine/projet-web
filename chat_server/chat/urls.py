@@ -27,6 +27,7 @@ urlpatterns = [
     path('deleteUser/', views.deleteUser, name='delete-user'),
     path('changePassword', views.changePassword, name='change-password'),
     path('actualConv/', views.actualConv, name='actual-conversation'),
+    path('changeRights/', views.changeRights, name='change-rights'),
     path('rights/<str:username>/', views.rights_view, name='rights-view'),
 ]
 
