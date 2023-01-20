@@ -35,9 +35,6 @@
     margin: 0;
     padding: 0;
     font-family: "EleganTech", Arial, Helvetica, sans-serif;
-    
-    scrollbar-color: var(--color-cstm-blue-light) transparent;
-    scrollbar-width: thin;
 }
 
 #index { background-color: var(--login-background-color); }
@@ -140,7 +137,9 @@ header h1 { color: var(--color-text-light); font-family: "EspressoDolce", Arial,
     padding: var(--main-padding) var(--main-padding) 0 55px;
     list-style: none;
     transition: 0.65s var(--interpolation-open-menu);
-    user-select: none
+    user-select: none;
+    scrollbar-color: var(--color-cstm-blue-light) transparent;
+    scrollbar-width: thin;
 }
 
 #show-button, #add-conv-button {
@@ -215,6 +214,8 @@ h3 {
     grid-area: conversation-thread;
     margin: 0 var(--main-padding) var(--main-padding) 0;
     overflow-y: scroll;
+    scrollbar-color: var(--color-cstm-blue-light) transparent;
+    scrollbar-width: thin;
 }
 
 .message-other {
@@ -298,6 +299,8 @@ h3 {
     padding: var(--main-padding);
     height: calc(100% - 2 * var(--main-padding));
     overflow-y: scroll;
+    scrollbar-color: var(--color-cstm-blue-light) transparent;
+    scrollbar-width: thin;
 }
 #conversations-list, #users-list {
     display: flex;
@@ -392,6 +395,8 @@ h3 {
     transition: 0.65s var(--interpolation-open-menu);
     overflow-x: hidden;
     overflow-y: scroll;
+    scrollbar-color: transparent transparent;
+    scrollbar-width: none;
 }
 #rights-title {
     line-height: 50px;
@@ -437,6 +442,8 @@ h3 {
     flex-direction: column;
     row-gap: var(--main-gap);
     overflow-y: scroll;
+    scrollbar-color: transparent transparent;
+    scrollbar-width: none;
 }
 #rights-per-conversation-title{
     background-color: var(--color-cstm-blue-dark);
@@ -452,6 +459,8 @@ h3 {
     flex-direction: column;
     row-gap: var(--main-gap);
     overflow-y: scroll;
+    scrollbar-color: var(--color-cstm-blue-light) transparent;
+    scrollbar-width: thin;
 }
 .rights-row {
     display: flex;
