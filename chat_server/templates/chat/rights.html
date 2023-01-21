@@ -24,6 +24,7 @@
 {% block body %}<body id="moderation">{% endblock %}
 
 {% block content %}
+{% if user.is_staff %} 
 <div id="rights-main-container">
     <div id="rights-title">
         <h3>Droits - {{ main_user.username }}</h3>
@@ -40,27 +41,67 @@
                             body: JSON.stringify({data})
                         }).then(response => {
                         if (response.status === 200) {
-                            window.location.href = '/rights';
+                            window.location.href = '/rights/{{ main_user.username }}';
                         }
                     });
                     }
-                </script>               
-    <form method="post" id="rights-form-admin" class="rights-row-simple">
-        <label for="param-conv-create"><h4>Administrateur</h4></label>
-        <input type="checkbox" name="param-admin" id="param-admin" onClick="changeRights('{{ main_user.username }}')">  
-    </form>
+                </script>  
+                
+                <script>
+                    function createConvRights(data) {
+                        var csrf_token = "{{ csrf_token }}";
+                        fetch('/createConvRights/', {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRFToken': csrf_token,
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({data})
+                        }).then(response => {
+                        if (response.status === 200) {
+                            window.location.href = '/rights/{{ main_user.username }}';
+                        }
+                    });
+                    }
+                </script> 
+                
+                <script>
+                    function deleteConvRights(data) {
+                        var csrf_token = "{{ csrf_token }}";
+                        fetch('/deleteConvRights/', {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRFToken': csrf_token,
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({data})
+                        }).then(response => {
+                        if (response.status === 200) {
+                            window.location.href = '/rights/{{ main_user.username }}';
+                        }
+                    });
+                    }
+                </script> 
+                
+      
+        <form method="post" id="rights-form-admin" class="rights-row-simple">
+            <label for="param-conv-create"><h4>Administrateur</h4></label>
+            <input type="checkbox" name="param-admin" id="param-admin" onclick="changeRights('{{ main_user.username }}')">  
+        </form>
+    
+    
     <form method="post" id="rights-form-general">
         <h4>Droits généraux</h4>
         <div class="rights-row-simple">
-            <input type="checkbox" name="param-conv-create" id="param-conv-create">  
+            <input type="checkbox" name="param-conv-create" id="param-conv-create" onclick="createConvRights('{{ main_user.username }}')">  
             <label for="param-conv-create">Créer une conversation</label>
         </div>
         <div class="rights-row-simple">
-            <input type="checkbox" name="param-conv-delete" id="param-conv-delete">
+            <input type="checkbox" name="param-conv-delete" id="param-conv-delete" onclick="deleteConvRights('{{ main_user.username }}')">
             <label for="param-conv-delete">Supprimer une conversation</label>
         </div>
             <div class="rights-row-simple">
-            <input type="checkbox" name="param-conv-rename" id="param-conv-rename">
+            <input type="checkbox" name="param-conv-rename" id="param-conv-rename" onclick="renameConvRights('{{ main_user.username }}')">
             <label for="param-conv-rename">Renommer une conversation</label>
         </div>
     </form>
@@ -93,4 +134,7 @@
         {% endif %}
     </div>
 </div>
+{% else %}
+    <p>Vous ne pouvez pas changer les droits de cet utilisateur</p>
+{% endif %}
 {% endblock %}

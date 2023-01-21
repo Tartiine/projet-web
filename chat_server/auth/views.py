@@ -24,6 +24,7 @@ class CustomSignupView(TemplateView):
                     user.is_superuser = True
                 user.save()
             return render(request, 'auth/login.html', {'error': 'Account created'})
+
         else:
             return render(request, self.template_name, {'error': 'Error the account was not created'})
 

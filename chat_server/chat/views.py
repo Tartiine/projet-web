@@ -8,16 +8,22 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 import datetime
+from django.contrib.auth.models import Permission
+
+
+
 
 # Create your views here.
 
 class IndexView(TemplateView):
     template_name = "chat/index.html"
-    
 
 
     def get(self, request, *args, **kwargs):
-    
+        
+        if request.GET.get('logout'):
+            logout(request)
+        
         if Chat.objects.exists():
             if 'actual_conv' not in request.session:
                 request.session['actual_conv'] = Chat.objects.order_by('-creation_date')[0].name
@@ -28,8 +34,6 @@ class IndexView(TemplateView):
             context = {'conversation_list': conversation_list,'message_list': message_list, 'actual_conv':conv_name}
         else:
             context = {}
-        if request.GET.get('logout'):
-            logout(request)
         return render(request, self.template_name, context)
         
         
@@ -37,29 +41,33 @@ class IndexView(TemplateView):
         if request.method == 'POST':
             if not request.user.is_authenticated:
                 return redirect('account_login')
-
+            
             new_conv = request.POST.get('new-conv', None)
             if new_conv:
-                if Chat.objects.filter(name=new_conv).exists():   
-                    messages.error(request, 'This chat already exists')
+                if request.user.has_perm('chat.add_chat'):
+                    if Chat.objects.filter(name=new_conv).exists():   
+                        messages.error(request, 'This chat already exists')
+                    else:
+                        new_chat = Chat(name=new_conv,creator=request.user, creation_date=timezone.make_aware(datetime.datetime.now()))
+                        new_chat.save()
                 else:
-                    new_chat = Chat(name=new_conv,creator=request.user, creation_date=timezone.make_aware(datetime.datetime.now()))
-                    new_chat.save()
-
+                    messages.error(request, 'You are not allowed to create a new bottle of milk')
             msg = request.POST.get('new-message', None)
             if msg:
-                if Chat.objects.exists():
-                    new_message = Message(author=request.user,chat=Chat.objects.get(name=request.session['actual_conv']), content=msg, publication_date=timezone.make_aware(datetime.datetime.now()) )
-                    new_message.save()
-                else: 
-                    messages.error(request, 'You have to create a chat room to send messages')
+
+                    if Chat.objects.exists():
+                        new_message = Message(author=request.user,chat=Chat.objects.get(name=request.session['actual_conv']), content=msg, publication_date=timezone.make_aware(datetime.datetime.now()) )
+                        new_message.save()
+                    else: 
+                        messages.error(request, 'You have to create a chat room to send messages')
         return redirect('index-view')
 
 def moderation(request):
     template_name = "chat/moderation.html"
     conversation_list = Chat.objects.order_by('-creation_date')[:]
     user_list = User.objects.order_by('-date_joined')[:]
-    context = {'conversation_list': conversation_list, 'user_list': user_list}
+    perm = request.user.has_perm('chat.delete_chat')
+    context = {'conversation_list': conversation_list, 'user_list': user_list,'perm' : perm}
     return render(request, template_name, context)
 
 def rights_view(request, username):
@@ -175,6 +183,37 @@ def changeRights(request):
             import json
             main_user = json.loads(request.body.decode())['data']
             if main_user:
-                user = User.objects.filter(username=main_user)
+                user = User.objects.get(username=main_user)
                 user.is_staff = True
-            return redirect('../rights')
+                user.save()
+            return redirect('../rights/' + main_user)
+
+def createConvRights(request):
+            import json
+            main_user = json.loads(request.body.decode())['data']
+            if main_user:
+                user = User.objects.get(username=main_user)
+                permission = Permission.objects.get(codename='add_chat')
+                user.user_permissions.add(permission)
+                user.save()
+            return redirect('../rights/' + main_user)
+        
+def deleteConvRights(request):
+            import json
+            main_user = json.loads(request.body.decode())['data']
+            if main_user:
+                user = User.objects.get(username=main_user)
+                permission = Permission.objects.get(codename='delete_chat')
+                user.user_permissions.add(permission)
+                user.save()
+            return redirect('../rights/' + main_user)
+
+def renameConvRights(request):
+            import json
+            main_user = json.loads(request.body.decode())['data']
+            if main_user:
+                user = User.objects.get(username=main_user)
+                permission = Permission.objects.get(codename='change_chat')
+                user.user_permissions.add(permission)
+                user.save()
+            return redirect('../rights/' + main_user)

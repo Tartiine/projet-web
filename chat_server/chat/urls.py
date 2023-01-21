@@ -28,6 +28,9 @@ urlpatterns = [
     path('changePassword', views.changePassword, name='change-password'),
     path('actualConv/', views.actualConv, name='actual-conversation'),
     path('changeRights/', views.changeRights, name='change-rights'),
+    path('createConvRights/', views.createConvRights, name='create-conv-rights'),
+    path('deleteConvRights/', views.deleteConvRights, name='delete-conv-rights'),
+    path('renameConvRights/', views.renameConvRights, name='rename-conv-rights'),
     path('rights/<str:username>/', views.rights_view, name='rights-view'),
 ]
 
