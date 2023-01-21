@@ -103,7 +103,7 @@ def thread(request):
 
 
 
-"""
+
 def getChats(request):
     chats = Chat.objects.all()
     data = [chat.to_dict() for chat in chats]
@@ -159,7 +159,7 @@ def saveMessage(request):
     data = [message.to_dict() for message in chat_messages]
 
     return JsonResponse({'chat': chat.name, 'messages': data})
-"""
+
 
 def deleteConversation(request):
             import json

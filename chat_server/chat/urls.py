@@ -32,6 +32,8 @@ urlpatterns = [
     path('deleteConvRights/', views.deleteConvRights, name='delete-conv-rights'),
     path('renameConvRights/', views.renameConvRights, name='rename-conv-rights'),
     path('rights/<str:username>/', views.rights_view, name='rights-view'),
+    path('getMessages',views.getMessages, name='message-getter'),
+    path('saveMessage',views.saveMessage, name='message-setter'),
 ]
 
 

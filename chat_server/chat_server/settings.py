@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-*^40q81mr$)g_1kvinw_i!5hp6v710_tzr5@d8v_h^e!ni695n'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'www.tchat-du-laitier.fr', 'tchat-du-laitier.fr']

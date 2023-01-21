@@ -11,7 +11,6 @@ def permission_to_dict(permission):
 def user_to_dict(user):
     dicuser = {}
     dicuser['username'] = user.username
-    dicuser['user_permissions'] = [permission_to_dict(permission) for permission in user.get_all_permissions()]
     return dicuser
 
 class Chat(models.Model):

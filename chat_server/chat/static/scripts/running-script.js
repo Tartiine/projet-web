@@ -1,4 +1,4 @@
-/*username = $('#username').html()
+username = $('#username').html()
 if(username != ""){
     console.log(username)
 }else{
@@ -73,4 +73,3 @@ $($("#writing-area").children("form")).on('submit', (event) => {
 })
 
 setInterval(() => {loadChat($("#conversation-title h3").html())}, 2500)
-*/
