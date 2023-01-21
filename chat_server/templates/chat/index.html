@@ -91,7 +91,7 @@
     <div id="conversation-title">
         <h3>{{ actual_conv }}</h3>
     </div>
-    <div id="conversation-thread">
+    <div id="conversation-thread" >
         {% if conversation_list %}
             {% for message in message_list %}
                 {% if user.is_authenticated %}
@@ -111,21 +111,11 @@
             {% endfor %}
         {% endif %}
     </div>
-    <script>
-        function submitForm1() {
-            var form = document.getElementById("form_msg");
-            if(form) {
-                form.submit();
-                setTimeout(function(){
-                    document.getElementById("conversation-thread").scrollTop = document.getElementById("conversation-thread").scrollHeight;
-                }, 100);
-            }
-        }
-    </script>
+
 
     <div id="writing-area">
         {% if user.is_authenticated %}
-            <form method="post" id="form_msg" >
+            <form method="post" id="form_msg">
                 {% csrf_token %}
                 <input type="text" name="new-message" id="new-message" autocomplete="off" placeholder="Entrez un message">
                 <div id="emoji-button">

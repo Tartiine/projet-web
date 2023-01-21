@@ -32,6 +32,7 @@ urlpatterns = [
     path('deleteConvRights/', views.deleteConvRights, name='delete-conv-rights'),
     path('renameConvRights/', views.renameConvRights, name='rename-conv-rights'),
     path('rights/<str:username>/', views.rights_view, name='rights-view'),
+    path('get_messages/', views.get_messages, name='get-messages'),
 ]
 
 

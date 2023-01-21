@@ -61,3 +61,13 @@ moderationSwitchTab(1);
 for (let i = 1; i < 4; i++) {
     $("#rights-per-conversation-all label:nth-child("+(i + 1)+") input").click(function(){checkAll($(this), i)});
 }
+
+setInterval(function() {
+    $.ajax({
+        type: 'GET',
+        url: '/get-messages/',
+        success: function(response) {
+            // Do something with the response here, like updating the messages on the page
+        }
+    });
+}, 5000);  // Make the request every 5000 milliseconds (5 seconds)

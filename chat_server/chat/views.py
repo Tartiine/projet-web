@@ -11,8 +11,6 @@ import datetime
 from django.contrib.auth.models import Permission
 
 
-
-
 # Create your views here.
 
 class IndexView(TemplateView):
@@ -20,7 +18,6 @@ class IndexView(TemplateView):
 
 
     def get(self, request, *args, **kwargs):
-        
         if request.GET.get('logout'):
             logout(request)
         
@@ -54,7 +51,6 @@ class IndexView(TemplateView):
                     messages.error(request, 'You are not allowed to create a new bottle of milk')
             msg = request.POST.get('new-message', None)
             if msg:
-
                     if Chat.objects.exists():
                         new_message = Message(author=request.user,chat=Chat.objects.get(name=request.session['actual_conv']), content=msg, publication_date=timezone.make_aware(datetime.datetime.now()) )
                         new_message.save()
@@ -109,7 +105,6 @@ def getChats(request):
     data = [chat.to_dict() for chat in chats]
     return JsonResponse({'chats': data})
 
-
 def getMessages(request):
     chat = Chat.objects.get(name=request.GET['chatName'])
     messages = chat.message_set.only('author', 'chat', 'content', 'publication_date').all()
@@ -117,7 +112,6 @@ def getMessages(request):
     data = [message.to_dict() for message in messages]
    
     return JsonResponse({'chat': chat.name, 'messages': data})
-
 
 def createChat(request):
     print(request)
@@ -222,3 +216,15 @@ def renameConvRights(request):
                 user.user_permissions.add(permission)
                 user.save()
             return redirect('../rights/' + main_user)
+
+
+def get_messages(request):
+    template_name = "chat/index.html"
+    if 'actual_conv' in request.session:
+        conv_name = request.session['actual_conv']
+        conv = Chat.objects.get(name=conv_name)
+        message_list = Message.objects.filter(chat=conv).order_by('publication_date')[:] 
+        context = {'message_list': message_list}
+    else:
+        context={}
+    return render(request,template_name, context)

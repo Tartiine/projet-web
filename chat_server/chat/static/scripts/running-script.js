@@ -74,3 +74,15 @@ $($("#writing-area").children("form")).on('submit', (event) => {
 
 setInterval(() => {loadChat($("#conversation-title h3").html())}, 2500)
 */
+var container = $("#conversation-thread");
+setInterval(function() {
+    $.ajax({
+       type: 'GET',
+        url: '/get_messages/',
+        success: function(response) {
+            var lastMessage = container.children().last();
+            container.scrollTop(container.prop("scrollHeight"));
+        }
+    });
+}, 2500);
+ 
