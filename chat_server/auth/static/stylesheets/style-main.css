@@ -67,6 +67,10 @@ header h1 { color: var(--color-text-light); font-family: "EspressoDolce", Arial,
     color: var(--color-text-dark);
     transform: scale(1);
     transition: 0.15s var(--interpolation-hover);
+    -moz-transition: 0.15s var(--interpolation-hover);
+    -ms-transition: 0.15s var(--interpolation-hover);
+    -o-transition: 0.15s var(--interpolation-hover);
+    -webkit-transition: 0.15s var(--interpolation-hover);
 }
 .header-button:hover {
     background-color: var(--color-cstm-semi-dark-green);
@@ -93,14 +97,18 @@ header h1 { color: var(--color-text-light); font-family: "EspressoDolce", Arial,
         "sidebar    conversation-thread"
         "sidebar    writing-area";
     grid-template-rows: calc(50px + var(--main-padding)) auto calc(54px + var(--main-padding));
-    grid-template-columns: 50px auto;
+    grid-template-columns: 50px calc(100vw - 50px - 3*var(--main-padding));
     row-gap: var(--main-gap);
     column-gap: var(--main-padding);
 
     transition: 0.65s var(--interpolation-open-menu);
+    -ms-transition: 0.65s var(--interpolation-open-menu);
+    -moz-transition: 0.65s var(--interpolation-open-menu);
+    -o-transition: 0.65s var(--interpolation-open-menu);
+    -webkit-transition: 0.65s var(--interpolation-open-menu);
 }
 
-#main-container, #main-container-no-sidebar {
+#main-container, #main-container-no-sidebar, #main-container-404 {
     width: calc(100% - 2 * var(--main-padding));
     height: calc(100% - 2 * var(--main-padding));
     font-size: var(--text-size-main);
@@ -112,7 +120,7 @@ header h1 { color: var(--color-text-light); font-family: "EspressoDolce", Arial,
         calc(var(--main-padding) * 0.85)
         calc(var(--main-padding) * 0.425);
 }
-
+#main-container-404 { display: flex; justify-content: center; align-items: center;}
 #moderation {display: flex; flex-direction: column;}
 #main-container-no-sidebar {
     height: calc(100% - 3 * var(--main-padding) - 38px - 36px);
@@ -138,6 +146,10 @@ header h1 { color: var(--color-text-light); font-family: "EspressoDolce", Arial,
     padding: var(--main-padding) var(--main-padding) 0 55px;
     list-style: none;
     transition: 0.65s var(--interpolation-open-menu);
+    -ms-transition: 0.65s var(--interpolation-open-menu);
+    -moz-transition: 0.65s var(--interpolation-open-menu);
+    -o-transition: 0.65s var(--interpolation-open-menu);
+    -webkit-transition: 0.65s var(--interpolation-open-menu);
     user-select: none;
     scrollbar-color: var(--color-cstm-blue-light) transparent;
     scrollbar-width: thin;
@@ -152,13 +164,23 @@ header h1 { color: var(--color-text-light); font-family: "EspressoDolce", Arial,
     margin-top: auto;
     cursor: pointer;
     transition: 0.1s var(--interpolation-hover);
+    -moz-transition: 0.1s var(--interpolation-hover);
+    -ms-transition: 0.1s var(--interpolation-hover);
+    -o-transition: 0.1s var(--interpolation-hover);
+    -webkit-transition: 0.1s var(--interpolation-hover);
 }
 #show-button { z-index: 2; right: 0; }
 #add-conv-button { z-index: 1; left: 0; }
 
 #show-button:hover, #add-conv-button:hover { transform: scale(1.15); }
 #show-button:active, #add-conv-button:active { transform: scale(1.25); }
-#show-button-graphics, #add-conv-button-graphics { transition: 0.65s var(--interpolation-hover); }
+#show-button-graphics, #add-conv-button-graphics {
+    transition: 0.65s var(--interpolation-hover);
+    -moz-transition: 0.65s var(--interpolation-hover);
+    -ms-transition: 0.65s var(--interpolation-hover);
+    -o-transition: 0.65s var(--interpolation-hover);
+    -webkit-transition: 0.65s var(--interpolation-hover);
+}
 
 #new-conv {
     position: absolute;
@@ -175,6 +197,10 @@ header h1 { color: var(--color-text-light); font-family: "EspressoDolce", Arial,
     border: none;
     border-radius: 5px;
     transition: 0.65s var(--interpolation-open-menu);
+    -ms-transition: 0.65s var(--interpolation-open-menu);
+    -moz-transition: 0.65s var(--interpolation-open-menu);
+    -o-transition: 0.65s var(--interpolation-open-menu);
+    -webkit-transition: 0.65s var(--interpolation-open-menu);
 }
 
 .conversation {
@@ -184,6 +210,10 @@ header h1 { color: var(--color-text-light); font-family: "EspressoDolce", Arial,
     padding: 5px;
     border-radius: 5px;
     transition: 0.15s var(--interpolation-hover);
+    -ms-transition: 0.15s var(--interpolation-hover);
+    -moz-transition: 0.15s var(--interpolation-hover);
+    -o-transition: 0.15s var(--interpolation-hover);
+    -webkit-transition: 0.15s var(--interpolation-hover);
 }
 .conversation p:first-child {
     font-size: var(--text-size-main);
@@ -201,6 +231,9 @@ header h1 { color: var(--color-text-light); font-family: "EspressoDolce", Arial,
     grid-area: conversation-title;
     margin: var(--main-padding) var(--main-padding) 0 0;
     line-height: 50px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 h3 {
     font-size: 38px;
@@ -296,6 +329,10 @@ h3 {
     transform-origin: bottom left;
     transform: scale(1);
     transition: 0.15s var(--interpolation-hover);
+    -moz-transition: 0.15s var(--interpolation-hover);
+    -ms-transition: 0.15s var(--interpolation-hover);
+    -o-transition: 0.15s var(--interpolation-hover);
+    -webkit-transition: 0.15s var(--interpolation-hover);
 }
 #moderation-main-content {
     padding: var(--main-padding);
@@ -396,6 +433,10 @@ h3 {
         calc(var(--main-padding) * 0.85)
         calc(var(--main-padding) * 0.425);
     transition: 0.65s var(--interpolation-open-menu);
+    -ms-transition: 0.65s var(--interpolation-open-menu);
+    -moz-transition: 0.65s var(--interpolation-open-menu);
+    -o-transition: 0.65s var(--interpolation-open-menu);
+    -webkit-transition: 0.65s var(--interpolation-open-menu);
     overflow-x: hidden;
     overflow-y: scroll;
     scrollbar-color: transparent transparent;
@@ -463,26 +504,35 @@ h3 {
     flex-direction: column;
     row-gap: var(--main-gap);
     overflow-y: scroll;
-    overflow-x: hidden;
-    scrollbar-color: var(--color-cstm-blue-light) transparent;
+    scrollbar-color: var(--color-cstm-blue-dark) transparent;
     scrollbar-width: thin;
 }
 .rights-row {
     display: flex;
-    overflow: hidden;
-    white-space: nowrap;
     align-items: center;
     padding: calc(var(--main-gap) - 5px) var(--main-gap);
     border-radius: calc(var(--main-gap) / 2);
     background-color: var(--color-cstm-blue-light);
     color: var(--color-text-dark);
 }
-.rights-row div { flex: 2; }
+.rights-row div {
+    flex: 1.95;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-right: 12px;
+}
 .rights-row label {
     flex: 1;
     display: flex;
+    overflow: hidden;
+    white-space: nowrap;
     align-items: center;
     column-gap: 5px;
+}
+
+video {
+    width: min(calc(100vw - 4 * var(--main-padding)),
+    calc((100vh - var(--header-size) - (4 * var(--main-padding))) * 16/9.2));
 }
 
 .wave-background div {

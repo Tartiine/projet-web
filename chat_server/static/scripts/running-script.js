@@ -74,5 +74,3 @@ $($("#writing-area").children("form")).on('submit', (event) => {
 
 setInterval(() => {loadChat($("#conversation-title h3").html())}, 2500)
 */
-
-
