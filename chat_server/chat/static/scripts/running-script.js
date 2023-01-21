@@ -66,7 +66,6 @@ $("div.conversation").each((index,element) => {
 
 //adding listeners to send messages
 $($("#writing-area").children("form")).on('submit', (event) => {
-    console.log("fooled");
     event.preventDefault();
     sendMessage($("#conversation-title h3").html(), $("#new-message").val())
     $("#new-message").val("")
