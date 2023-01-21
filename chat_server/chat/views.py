@@ -70,10 +70,6 @@ def moderation(request):
     context = {'conversation_list': conversation_list, 'user_list': user_list,'perm' : perm}
     return render(request, template_name, context)
 
-def error404(request):
-    template_name = "chat/404.html"
-    return render(request, template_name)
-
 def rights_view(request, username):
     template_name = "chat/rights.html"
     main_user = get_object_or_404(User, username=username)
@@ -99,8 +95,13 @@ def changePassword(request):
         messages.error(request, 'No password provided')
         return redirect('../moderation')
 
+def error_404(request, exception):
+    return render(request, '404.html')
+
 def thread(request):
     return render(request, 'thread.html')
+
+
 
 """
 def getChats(request):

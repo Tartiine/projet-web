@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls import handler404
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -22,3 +23,6 @@ urlpatterns = [
     path('chat/', include('chat.urls')),
     path ('', include('chat.urls')) ,
 ]
+
+handler404 = 'chat.views.error_404'
+
