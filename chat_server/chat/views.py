@@ -21,18 +21,23 @@ class IndexView(TemplateView):
         if request.GET.get('logout'):
             logout(request)
         
+
+        
         if Chat.objects.exists():
-            if 'actual_conv' not in request.session:
+            if 'actual_conv' not in request.session or request.session['actual_conv'] is None:
                 request.session['actual_conv'] = Chat.objects.order_by('-creation_date')[0].name
             conv_name = request.session['actual_conv']
-            conv = Chat.objects.get(name=conv_name)
-            message_list = Message.objects.filter(chat=conv).order_by('publication_date')[:] 
-            conversation_list = Chat.objects.order_by('-creation_date')[:] 
-            context = {'conversation_list': conversation_list,'message_list': message_list, 'actual_conv':conv_name}
+            try:
+                conv = Chat.objects.get(name=conv_name)
+                message_list = Message.objects.filter(chat=conv).order_by('publication_date')[:] 
+                conversation_list = Chat.objects.order_by('-creation_date')[:] 
+                context = {'conversation_list': conversation_list,'message_list': message_list, 'actual_conv':conv_name}
+            except Chat.DoesNotExist:
+                request.session['actual_conv'] = None
+                context = {'conversation_list': Chat.objects.order_by('-creation_date')[:]}
         else:
             context = {}
         return render(request, self.template_name, context)
-        
         
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
@@ -49,12 +54,15 @@ class IndexView(TemplateView):
                         new_chat.save()
                 else:
                     messages.error(request, 'You are not allowed to create a new bottle of milk')
+
             msg = request.POST.get('new-message', None)
             if msg:
-                    if Chat.objects.exists():
-                        new_message = Message(author=request.user,chat=Chat.objects.get(name=request.session['actual_conv']), content=msg, publication_date=timezone.make_aware(datetime.datetime.now()) )
+                    try:
+                        conv = Chat.objects.get(name=request.session['actual_conv'])
+                        new_message = Message(author=request.user,chat=conv, content=msg, publication_date=timezone.make_aware(datetime.datetime.now()) )
                         new_message.save()
-                    else: 
+                    except Chat.DoesNotExist:
+                        request.session['actual_conv'] = None
                         messages.error(request, 'You have to create a chat room to send messages')
         return redirect('index-view')
 
