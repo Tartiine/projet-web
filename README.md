@@ -8,7 +8,7 @@ January 2023
 
 # Introduction
 
-Website template based on `django` and `javascript` frameworks implementing an user authentification, administration and chat system allowing emoticons :smile:. 
+Website template based on `django` and `javascript` frameworks implementing an user authentification, administration and a chat system allowing emoticons :smile:. 
 
 # Prerequisite
 
