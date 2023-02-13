@@ -1,4 +1,4 @@
-# [Projet_web] College project ENSISA 1A IR.
+# [projet-web] College project ENSISA 1A IR.
 
 Made by [Isaac Dalberto](https://github.com/IDalb), [Corentin Leandre](https://github.com/corentinleandre), [Sofia Saadi](https://github.com/Tartiine)
 
